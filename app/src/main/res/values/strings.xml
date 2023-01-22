@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">TreinoAcademia</string>
+
+    <!-- Login -->
+    <string name="login_logo_content_description">logo app de treino</string>
+    <string name="login_welcome_text">BEM VINDO AO TRAINING APP</string>
+    <string name="login_description_text">Faça login ou cadastre-se</string>
+    <string name="login_email_hint">E-mail</string>
+    <string name="login_password_hint">Senha</string>
+    <string name="login_enter_the_app_button">Entrar</string>
+    <string name="login_register_text">CRIAR CONTA</string>
+
+    <!-- Register -->
+    <string name="register_user_text">Registrar Usuário</string>
+    <string name="register_return_to_login_text">Realizar Login</string>
+    <string name="register_button_text">Cadastrar</string>
+    <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
+    <string name="register_password_error_message_text">Senha deve ser acima de 5 digitos</string>
+
+
 </resources>
