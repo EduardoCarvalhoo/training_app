@@ -9,13 +9,38 @@
     <string name="login_password_hint">Senha</string>
     <string name="login_enter_the_app_button">Entrar</string>
     <string name="login_register_text">CRIAR CONTA</string>
+    <string name="login_email_error_message_text">Email no formato inválido</string>
+    <string name="login_password_error_message_text">Senha deve ser no mínimo 6 digitos </string>
 
     <!-- Register -->
     <string name="register_user_text">Registrar Usuário</string>
     <string name="register_return_to_login_text">Realizar Login</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
-    <string name="register_password_error_message_text">Senha deve ser acima de 5 digitos</string>
+    <string name="register_password_error_message_text">Senha deve no mínimo 6 digitos</string>
 
+    <!-- Home -->
+    <string name="home_title_text">Treinos</string>
+    <string name="home_create_text">Criar meu treino</string>
+    <string name="home_list_text">Meus treinos</string>
+    <string name="home_button_add_description">Botão adicionar</string>
+
+
+    <!-- TrainingCreation -->
+    <string name="training_creation_title_text">Criar Treino</string>
+    <string name="training_creation_description_text">Defina o nome do treino</string>
+    <string name="training_creation_type_text">Ex: treino de peito</string>
+    <string name="training_creation_add_exercises_text">Adicione seus exercícios</string>
+    <string name="training_creation_button">Criar Treino</string>
+    <string name="training_creation_button_description">Botão criar treino</string>
+
+    <!-- exercises -->
+    <string name="exercises_title_text">Adicionar Exercícios</string>
+    <string name="exercises_save_text">Salvar Exercícios</string>
+
+    <!-- remove_exercise_item -->
+    remove_exercise_item_image_view
+    <string name="remove_exercise_item_image_description">Imagem do exercício</string>
+    <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
 
 </resources>
