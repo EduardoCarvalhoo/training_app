@@ -1,4 +1,4 @@
-package com.example.treinoacademia
+package com.example.training
 
 import org.junit.Test
 

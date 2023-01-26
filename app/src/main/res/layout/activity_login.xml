@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presentation.ui.login.LoginActivity">
+    tools:context="com.example.training.presentation.ui.login.LoginActivity">
 
     <ImageView
         android:id="@+id/login_logo_image_view"
@@ -115,6 +115,7 @@
         android:text="@string/login_enter_the_app_button"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:padding="12dp"
         app:layout_constraintEnd_toStartOf="@+id/login_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/login_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/login_password_field_text_input_layout" />
@@ -134,7 +135,7 @@
         android:id="@+id/login_register_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="@string/login_register_text"
         android:textAlignment="center"
         android:textColor="@color/black"

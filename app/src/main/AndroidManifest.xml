@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:name="com.example.training.data.di.LoginApp"
+        android:name="com.example.training.data.di.TrainingApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +17,7 @@
             android:name="com.example.training.presentation.ui.home.ExercisesActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.training.presentation.ui.home.TrainingCreationActivity"
+            android:name="com.example.training.presentation.ui.home.trainingcreation.TrainingCreationActivity"
             android:exported="false" />
         <activity
             android:name="com.example.training.presentation.ui.home.HomeActivity"

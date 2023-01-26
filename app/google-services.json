@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "890156764624",
+    "project_id": "treino-academia",
+    "storage_bucket": "treino-academia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:890156764624:android:bb2b09cdc32c3f680c3dd5",
+        "android_client_info": {
+          "package_name": "com.example.treinoacademia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "890156764624-2glep5hphej5fhg9pe6gf26ujkv72q29.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.treinoacademia",
+            "certificate_hash": "d0ccff857e4a911c73d74130fd7f579875dda577"
+          }
+        },
+        {
+          "client_id": "890156764624-14u96rl5emuu2nir92g4btn5jidkha94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9oEEiqR4ganmrkeK8auxCQF9PjegWU9Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "890156764624-14u96rl5emuu2nir92g4btn5jidkha94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

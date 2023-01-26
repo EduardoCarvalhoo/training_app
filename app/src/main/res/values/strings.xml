@@ -11,10 +11,13 @@
     <string name="login_register_text">CRIAR CONTA</string>
     <string name="login_email_error_message_text">Email no formato inválido</string>
     <string name="login_password_error_message_text">Senha deve ser no mínimo 6 digitos </string>
+    <string name="login_User_authenticated_successfully_toast">Usuário autenticado com sucesso</string>
+    <string name="login_unauthenticated_user_toast">Usuário não autenticado</string>
 
     <!-- Register -->
-    <string name="register_user_text">Registrar Usuário</string>
-    <string name="register_return_to_login_text">Realizar Login</string>
+    <string name="register_user_text_toolbar">Cadastrar Usuário</string>
+    <string name="register_successfully_registered_user_toast">Usuário cadastrado com sucesso</string>
+    <string name="register_failed_to_register_user_toast">Falha ao registrar usuário</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
     <string name="register_password_error_message_text">Senha deve no mínimo 6 digitos</string>
@@ -25,7 +28,6 @@
     <string name="home_list_text">Meus treinos</string>
     <string name="home_button_add_description">Botão adicionar</string>
 
-
     <!-- TrainingCreation -->
     <string name="training_creation_title_text">Criar Treino</string>
     <string name="training_creation_description_text">Defina o nome do treino</string>
@@ -33,6 +35,9 @@
     <string name="training_creation_add_exercises_text">Adicione seus exercícios</string>
     <string name="training_creation_button">Criar Treino</string>
     <string name="training_creation_button_description">Botão criar treino</string>
+    <string name="training_creation_success_saving_data_toast">Sucesso ao salvar os dados</string>
+    <string name="training_creation_error_saving_data_toast">Erro ao salvar os dados</string>
+
 
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>
