@@ -1,19 +1,17 @@
-package com.example.training.presentation.ui.login.register
+package com.example.training.presentation.ui.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.RegisterRepository
 import com.example.training.data.response.RegisterResult
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.User
 import com.example.treinoacademia.R
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegisterViewModel(private val register: RegisterRepository) : ViewModel() {
+class RegisterViewModel(private val registerRepository: RegisterRepository) : ViewModel() {
     private val successfullyRegisteredUserMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
     val successfullyRegisteredUserLiveData: LiveData<Enum<FieldStatus>> =
         successfullyRegisteredUserMutableLiveData
@@ -25,12 +23,12 @@ class RegisterViewModel(private val register: RegisterRepository) : ViewModel() 
     private val passwordErrorMessageMutableLiveData = MutableLiveData<Int?>()
     val passwordErrorMessageLiveData: LiveData<Int?> = passwordErrorMessageMutableLiveData
 
-    fun registerUser(user: User, userAuthentication: FirebaseAuth) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun registerUser(user: User) {
+        viewModelScope.launch {
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
             if (isValidEmail && isValidPassword) {
-                register.getUserRegistration(user, userAuthentication) { register ->
+                registerRepository.getUserRegistration(user) { register ->
                     when (register) {
                         is RegisterResult.Success -> {
                             successfullyRegisteredUserMutableLiveData.postValue(register.value)

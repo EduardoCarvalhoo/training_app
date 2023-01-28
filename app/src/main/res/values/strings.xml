@@ -24,9 +24,11 @@
 
     <!-- Home -->
     <string name="home_title_text">Treinos</string>
-    <string name="home_create_text">Criar meu treino</string>
+    <string name="home_create_text">Criar treino</string>
     <string name="home_list_text">Meus treinos</string>
     <string name="home_button_add_description">Botão adicionar</string>
+    <string name="home_error_reading_data_toast">Erro ao ler documento, ele não existe ou está vazio</string>
+    <string name="home_error_reading_data_from_server_toast">Erro ao ler dados do servidor</string>
 
     <!-- TrainingCreation -->
     <string name="training_creation_title_text">Criar Treino</string>
@@ -37,11 +39,14 @@
     <string name="training_creation_button_description">Botão criar treino</string>
     <string name="training_creation_success_saving_data_toast">Sucesso ao salvar os dados</string>
     <string name="training_creation_error_saving_data_toast">Erro ao salvar os dados</string>
+    <string name="training_empty_field_text">Campo vazio</string>
 
 
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>
     <string name="exercises_save_text">Salvar Exercícios</string>
+    <string name="exercises_error_reading_data_toast">Erro ao ler documento, ele não existe ou está vazio</string>
+    <string name="exercises_error_reading_data_from_server_toast">Erro ao ler dados do servidor</string>
 
     <!-- remove_exercise_item -->
     remove_exercise_item_image_view

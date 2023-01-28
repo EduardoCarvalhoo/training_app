@@ -4,17 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import com.example.training.domain.model.User
 import com.example.training.presentation.ui.home.HomeActivity
-import com.example.training.presentation.ui.login.register.RegisterActivity
+import com.example.training.presentation.ui.register.RegisterActivity
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
-    private val firebaseUser = FirebaseAuth.getInstance()
     private val binding by lazy { ActivityLoginBinding.inflate(layoutInflater) }
     private val viewModel: LoginViewModel by viewModel()
 
@@ -22,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        forwardUserToRegister()
+        doUserRegistration()
         funGetUserData()
         setupObserver()
         changeTextOnLogin()
@@ -36,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                     email = loginEmailEditText.text?.toString().orEmpty(),
                     password = loginPasswordEditText.text?.toString().orEmpty()
                 )
-                viewModel.doLogin(user, firebaseUser)
+                viewModel.doLogin(user)
             }
         }
     }
@@ -49,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
                 ).show()
                 forwardAuthenticatedUser()
                 clearEditText()
+            binding.loginProgressBar.isVisible = true
         }
 
         viewModel.loginErrorLiveData.observe(this) {
@@ -106,7 +106,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun forwardUserToRegister() {
+    private fun doUserRegistration() {
         binding.loginRegisterTextView.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun forwardAuthenticatedUser() {
         val intent = Intent(this, HomeActivity::class.java)
+        binding.loginProgressBar.isVisible = false
         startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.training.presentation.ui.login.register
+package com.example.training.presentation.ui.register
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,11 +7,9 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.training.domain.model.User
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityRegisterBinding
-import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
-    private val userAuthentication = FirebaseAuth.getInstance()
     private val binding by lazy { ActivityRegisterBinding.inflate(layoutInflater) }
     private val viewModel: RegisterViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
                     email = registerEmailEditText.text?.toString().orEmpty(),
                     password = registerPasswordEditText.text?.toString().orEmpty()
                 )
-                viewModel.registerUser(user, userAuthentication)
+                viewModel.registerUser(user)
             }
         }
     }
@@ -46,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupObserver() {
         viewModel.successfullyRegisteredUserLiveData.observe(this) {
             Toast.makeText(
-                this, R.string.login_User_authenticated_successfully_toast,
+                this, R.string.register_successfully_registered_user_toast,
                 Toast.LENGTH_LONG
             ).show()
             clearEditText()

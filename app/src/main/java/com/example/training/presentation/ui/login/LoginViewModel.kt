@@ -3,18 +3,15 @@ package com.example.training.presentation.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.LoginRepository
 import com.example.training.data.response.LoginResult
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.User
 import com.example.treinoacademia.R
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-
     private val loginSuccessMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
     val loginSuccessLiveData: LiveData<Enum<FieldStatus>> = loginSuccessMutableLiveData
     private val loginErrorMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
@@ -24,12 +21,12 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val passwordErrorMessageMutableLiveData = MutableLiveData<Int?>()
     val passwordErrorMessageLiveData: LiveData<Int?> = passwordErrorMessageMutableLiveData
 
-    fun doLogin(user: User, firebaseUser: FirebaseAuth) {
-        CoroutineScope(Dispatchers.IO).launch {
+    fun doLogin(user: User) {
+        viewModelScope.launch {
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
             if (isValidEmail && isValidPassword) {
-                loginRepository.getLoginAuthentication(user, firebaseUser) { result: LoginResult ->
+                loginRepository.getLoginAuthentication(user) { result: LoginResult ->
                     when (result) {
                         is LoginResult.Success -> {
                             loginSuccessMutableLiveData.postValue(result.value)

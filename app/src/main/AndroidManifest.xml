@@ -9,21 +9,24 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/drawable_logo_login"
         android:supportsRtl="true"
         android:theme="@style/Theme.Training"
         tools:targetApi="31">
         <activity
-            android:name="com.example.training.presentation.ui.home.ExercisesActivity"
-            android:exported="false" />
+            android:name="com.example.training.presentation.ui.exercises.ExercisesActivity"
+            android:exported="false"
+            android:parentActivityName="com.example.training.presentation.ui.training.TrainingCreationActivity"/>
+
         <activity
-            android:name="com.example.training.presentation.ui.home.trainingcreation.TrainingCreationActivity"
+            android:name="com.example.training.presentation.ui.training.TrainingCreationActivity"
+            android:parentActivityName="com.example.training.presentation.ui.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name="com.example.training.presentation.ui.home.HomeActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.training.presentation.ui.login.register.RegisterActivity"
+            android:name="com.example.training.presentation.ui.register.RegisterActivity"
             android:exported="false"
             android:parentActivityName="com.example.training.presentation.ui.login.LoginActivity" />
         <activity

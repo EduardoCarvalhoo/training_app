@@ -6,14 +6,13 @@ import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.User
 import com.google.firebase.auth.FirebaseAuth
 
-class RegisterImpl: RegisterRepository {
+class RegisterRepositoryImpl(private val firebaseUser: FirebaseAuth): RegisterRepository {
     override suspend fun getUserRegistration(
         user: User,
-        userAuthentication: FirebaseAuth,
         registerCallback: (register: RegisterResult) -> Unit
     ) {
         try {
-            userAuthentication.createUserWithEmailAndPassword(user.email, user.password)
+            firebaseUser.createUserWithEmailAndPassword(user.email, user.password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         registerCallback(RegisterResult.Success(FieldStatus.VALID))
