@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.training.presentation.ui.home.ExercisesActivity">
+    tools:context="com.example.training.presentation.ui.exercises.ExercisesActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/exercises_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#00BCD4"
+        android:background="#215FDA"
         app:titleTextColor="@color/white"
-        app:title="@string/exercises_title_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,14 +21,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/exercises_add_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/exercises_save_exercises_button"
+        app:layout_constraintEnd_toEndOf="@id/exercises_creation_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/exercises_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/exercises_toolbar"
-        tools:listitem="@layout/select_exercises_item"/>
+        tools:listitem="@layout/item_select_exercises"
+        tools:itemCount="6"/>
 
     <Button
-        android:id="@+id/exercises_add_button"
+        android:id="@+id/exercises_save_exercises_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -39,8 +39,22 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/exercises_creation_end_guideline"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/exercises_start_guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/exercises_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="30dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/exercises_creation_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="30dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
