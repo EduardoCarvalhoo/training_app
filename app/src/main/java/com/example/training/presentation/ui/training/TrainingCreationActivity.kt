@@ -8,6 +8,7 @@ import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.exercises.ExercisesActivity
 import com.example.training.utils.MAXIMUM_RANDOM_NUMBER
+import com.example.training.utils.showAlertDialog
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityTrainingCreationBinding
 import com.google.firebase.Timestamp
@@ -18,6 +19,8 @@ import kotlin.random.Random
 class TrainingCreationActivity : AppCompatActivity() {
     private val binding by lazy { ActivityTrainingCreationBinding.inflate(layoutInflater) }
     private val viewModel: TrainingCreationViewModel by viewModel()
+    private var trainingListAdapter: TrainingCreationAdapter? = null
+    private var exercisesMutableList: MutableList<Exercise> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,28 @@ class TrainingCreationActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         title = getString(R.string.home_title_text)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun addExercises() {
+        binding.trainingCreationAddExercisesButton.setOnClickListener {
+            val intent = Intent(this, ExercisesActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupObserver() {
+        with(viewModel) {
+            workoutCreatedSuccessLiveData.observe(this@TrainingCreationActivity) {
+                showAlertDialog(R.string.training_creation_success_saving_data)
+            }
+            errorWhenRegisteringLiveData.observe(this@TrainingCreationActivity) {
+                showAlertDialog(R.string.training_creation_error_saving_data)
+            }
+            listSuccessfullyRetrievedLiveData.observe(this@TrainingCreationActivity) { exerciseList ->
+                exercisesMutableList = exerciseList.toMutableList()
+                setupRecyclerView(exercisesMutableList)
+            }
+        }
     }
 
     private fun registerTraining() {
@@ -64,44 +89,21 @@ class TrainingCreationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupObserver() {
-        with(viewModel) {
-            workoutCreatedSuccessLiveData.observe(this@TrainingCreationActivity) {
-                Toast.makeText( // TODO("Adicionar dialog")
-                    this@TrainingCreationActivity,
-                    R.string.training_creation_success_saving_data_toast,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            errorWhenRegisteringLiveData.observe(this@TrainingCreationActivity) {
-                Toast.makeText( // TODO("Adicionar dialog")
-                    this@TrainingCreationActivity,
-                    R.string.training_creation_error_saving_data_toast,
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-
-            listSuccessfullyRetrievedLiveData.observe(this@TrainingCreationActivity) { exerciseList ->
-                setupRecyclerView(exerciseList)
-            }
-        }
-    }
-
-    private fun addExercises() {
-        binding.trainingCreationAddExercisesButton.setOnClickListener {
-            val intent = Intent(this, ExercisesActivity::class.java)
-            startActivity(intent)
-        }
-    }
 
     override fun onResume() {
         super.onResume()
-
         viewModel.getSelectedExerciseList()
     }
 
     private fun setupRecyclerView(exerciseList: List<Exercise>) {
-        binding.trainingCreationRecyclerView.adapter =
-            TrainingCreationAdapter(exerciseList)
+        trainingListAdapter = TrainingCreationAdapter(exerciseList) { adapterPosition ->
+            deleteItem(adapterPosition)
+        }
+        binding.trainingCreationRecyclerView.adapter = trainingListAdapter
+    }
+
+    private fun deleteItem(adapterPosition: Int) {
+        exercisesMutableList.removeAt(adapterPosition)
+        trainingListAdapter?.deleteItem(exercisesMutableList, adapterPosition)
     }
 }

@@ -12,11 +12,11 @@ import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(private val registerRepository: RegisterRepository) : ViewModel() {
-    private val successfullyRegisteredUserMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val successfullyRegisteredUserLiveData: LiveData<Enum<FieldStatus>> =
+    private val successfullyRegisteredUserMutableLiveData = MutableLiveData<Int>()
+    val successfullyRegisteredUserLiveData: LiveData<Int> =
         successfullyRegisteredUserMutableLiveData
-    private val errorWhenRegisteringUserMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val errorWhenRegisteringUserLiveData: LiveData<Enum<FieldStatus>> =
+    private val errorWhenRegisteringUserMutableLiveData = MutableLiveData<Int>()
+    val errorWhenRegisteringUserLiveData: LiveData<Int> =
         errorWhenRegisteringUserMutableLiveData
     private val emailErrorMessageMutableLiveData = MutableLiveData<Int?>()
     val emailErrorMessageLiveData: LiveData<Int?> = emailErrorMessageMutableLiveData
@@ -31,10 +31,12 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
                 registerRepository.getUserRegistration(user) { register ->
                     when (register) {
                         is RegisterResult.Success -> {
-                            successfullyRegisteredUserMutableLiveData.postValue(register.value)
+                            successfullyRegisteredUserMutableLiveData.postValue(R.string.register_successfully_registered_user)
                         }
                         is RegisterResult.Error -> {
-                            errorWhenRegisteringUserMutableLiveData.postValue(register.value)
+                            errorWhenRegisteringUserMutableLiveData.postValue(
+                                R.string.register_failed_to_register_user
+                            )
                         }
                     }
                 }

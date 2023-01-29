@@ -16,8 +16,8 @@
 
     <!-- Register -->
     <string name="register_user_text_toolbar">Cadastrar Usuário</string>
-    <string name="register_successfully_registered_user_toast">Usuário cadastrado com sucesso</string>
-    <string name="register_failed_to_register_user_toast">Falha ao registrar usuário</string>
+    <string name="register_successfully_registered_user">Usuário cadastrado com sucesso</string>
+    <string name="register_failed_to_register_user">Falha ao registrar usuário</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
     <string name="register_password_error_message_text">Senha deve no mínimo 6 digitos</string>
@@ -37,20 +37,23 @@
     <string name="training_creation_add_exercises_text">Adicione seus exercícios</string>
     <string name="training_creation_button">Criar Treino</string>
     <string name="training_creation_button_description">Botão criar treino</string>
-    <string name="training_creation_success_saving_data_toast">Sucesso ao salvar os dados</string>
-    <string name="training_creation_error_saving_data_toast">Erro ao salvar os dados</string>
+    <string name="training_creation_success_saving_data">Treino criado com sucesso</string>
+    <string name="training_creation_error_saving_data">Erro ao criar treino</string>
     <string name="training_empty_field_text">Campo vazio</string>
-
 
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>
     <string name="exercises_save_text">Salvar Exercícios</string>
     <string name="exercises_error_reading_data_toast">Erro ao ler documento, ele não existe ou está vazio</string>
     <string name="exercises_error_reading_data_from_server_toast">Erro ao ler dados do servidor</string>
+    <string name="exercises_successfully_added_text">Exercícios adicionados com sucesso!</string>
 
     <!-- remove_exercise_item -->
     remove_exercise_item_image_view
     <string name="remove_exercise_item_image_description">Imagem do exercício</string>
     <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
+
+    <!-- activity_extensions -->
+    <string name="alert_dialog_positive_button_message_text">OK</string>
 
 </resources>

@@ -2,7 +2,6 @@ package com.example.training.presentation.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.training.domain.model.Training
@@ -20,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
 
         setupObserver()
         setupCreationTrainingButtonClickListener()
-        setupMyTrainingButtonClickListener()
     }
 
     private fun setupObserver() {
@@ -28,7 +26,14 @@ class HomeActivity : AppCompatActivity() {
             setupRecyclerView(trainingData)
         }
         viewModel.errorReadingDataLiveData.observe(this) { errorMessageRes ->
-            Toast.makeText(this, getString(errorMessageRes), Toast.LENGTH_LONG).show() // TODO("Adicionar dialog")
+            setErrorMessageWhenLoadingList(errorMessageRes)
+        }
+    }
+    private fun setErrorMessageWhenLoadingList(errorMessageRes: Int) {
+        with(binding){
+            homeRecyclerView.isVisible = false
+            homeErrorMessageTextView.isVisible = true
+            homeErrorMessageTextView.text = getString(errorMessageRes)
         }
     }
 
@@ -46,12 +51,13 @@ class HomeActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        viewModel.getTrainingList()
+        setupMyTrainingButtonClickListener()
     }
 
     private fun setupMyTrainingButtonClickListener() {
         with(binding){
             homeTrainingListButton.setOnClickListener{
+                viewModel.getTrainingList()
                 homeRecyclerView.isVisible = !homeRecyclerView.isVisible
             }
         }

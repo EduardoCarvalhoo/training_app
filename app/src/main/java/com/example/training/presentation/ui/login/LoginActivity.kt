@@ -9,6 +9,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.example.training.domain.model.User
 import com.example.training.presentation.ui.home.HomeActivity
 import com.example.training.presentation.ui.register.RegisterActivity
+import com.example.training.utils.showAlertDialog
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityLoginBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         funGetUserData()
         setupObserver()
         changeTextOnLogin()
-        clearEditText()
     }
 
     private fun funGetUserData() {
@@ -42,21 +42,17 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupObserver() {
         viewModel.loginSuccessLiveData.observe(this) {
-                Toast.makeText(
-                    this, R.string.login_User_authenticated_successfully_toast,
-                    Toast.LENGTH_LONG
-                ).show()
-                forwardAuthenticatedUser()
-                clearEditText()
+            Toast.makeText(
+                this, R.string.login_User_authenticated_successfully_toast,
+                Toast.LENGTH_LONG
+            ).show()
+            clearEditText()
+            forwardAuthenticatedUser()
             binding.loginProgressBar.isVisible = true
         }
 
         viewModel.loginErrorLiveData.observe(this) {
-            Toast.makeText(
-                this, R.string.login_unauthenticated_user_toast,
-                Toast.LENGTH_LONG
-            ).show()
-
+            showAlertDialog(R.string.login_unauthenticated_user_toast)
         }
 
         viewModel.emailErrorMessageLiveData.observe(this) { emailErrorCode ->
@@ -70,9 +66,9 @@ class LoginActivity : AppCompatActivity() {
 
             viewModel.passwordErrorMessageLiveData.observe(this) { passwordErrorCode ->
                 with(binding) {
-                    if(passwordErrorCode != null){
+                    if (passwordErrorCode != null) {
                         loginPasswordFieldTextInputLayout.error = getString(passwordErrorCode)
-                    } else{
+                    } else {
                         loginPasswordFieldTextInputLayout.error = null
                     }
                 }
@@ -115,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun forwardAuthenticatedUser() {
         val intent = Intent(this, HomeActivity::class.java)
-        binding.loginProgressBar.isVisible = false
         startActivity(intent)
+        finish()
     }
 }

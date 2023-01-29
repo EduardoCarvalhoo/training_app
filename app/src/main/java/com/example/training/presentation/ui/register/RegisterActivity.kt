@@ -1,10 +1,10 @@
 package com.example.training.presentation.ui.register
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
 import com.example.training.domain.model.User
+import com.example.training.utils.showAlertDialog
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityRegisterBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
         title = getString(R.string.register_user_text_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
     }
 
     private fun receiveUserData() {
@@ -43,17 +44,11 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupObserver() {
         viewModel.successfullyRegisteredUserLiveData.observe(this) {
-            Toast.makeText( // TODO("Adicionar dialog")
-                this, R.string.register_successfully_registered_user_toast,
-                Toast.LENGTH_LONG
-            ).show()
+            showAlertDialog(R.string.register_successfully_registered_user)
             clearEditText()
         }
         viewModel.errorWhenRegisteringUserLiveData.observe(this) {
-            Toast.makeText( // TODO("Adicionar dialog")
-                this, R.string.register_failed_to_register_user_toast,
-                Toast.LENGTH_LONG
-            ).show()
+            showAlertDialog(it)
         }
 
         viewModel.emailErrorMessageLiveData.observe(this) { emailErrorCode ->

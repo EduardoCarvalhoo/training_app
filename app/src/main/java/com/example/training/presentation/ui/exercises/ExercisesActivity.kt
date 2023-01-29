@@ -1,9 +1,9 @@
 package com.example.training.presentation.ui.exercises
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.training.domain.model.Exercise
+import com.example.training.utils.showAlertDialog
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityExercisesBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -37,12 +37,11 @@ class ExercisesActivity : AppCompatActivity() {
     private fun setupObserver() {
         viewModel.dataReadSuccessfullyLiveData.observe(this) { exercisesList ->
             setupRecyclerView(exercisesList)
-
         }
-        viewModel.errorReadingDataLiveData.observe(this) { errorCode ->
-            Toast.makeText(this, getString(errorCode), Toast.LENGTH_LONG).show()
+        viewModel.errorReadingDataLiveData.observe(this) { errorMessage ->
+            showAlertDialog(errorMessage)
         }
-        viewModel.successfullySaveExerciseListLiveData.observe(this){
+        viewModel.successfullySaveExerciseListLiveData.observe(this) {
             finish()
         }
     }

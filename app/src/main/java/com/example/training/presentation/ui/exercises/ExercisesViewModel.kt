@@ -21,7 +21,7 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
 
     fun setExerciseList() {
         viewModelScope.launch {
-            exercisesRepository.getExerciseList() { result ->
+            exercisesRepository.getExerciseList { result ->
                 when (result) {
                     is ExercisesResult.Success -> {
                         dataReadSuccessfullyMutableLiveData.postValue(result.value)

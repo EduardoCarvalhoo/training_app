@@ -8,9 +8,9 @@ import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.databinding.ItemRemoveExerciseBinding
 
 class TrainingCreationAdapter(
-    private var exercises: List<Exercise>,
+    private val exercises: List<Exercise>, private val onClickDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<TrainingCreationAdapter.SelectedExercisesViewHolder>() {
-    private val _exerciseList: MutableList<Exercise> = exercises.toMutableList()
+    private var _exerciseList: MutableList<Exercise> = exercises.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedExercisesViewHolder {
         val view =
@@ -20,25 +20,27 @@ class TrainingCreationAdapter(
 
     override fun onBindViewHolder(holder: SelectedExercisesViewHolder, position: Int) {
         holder.bindView(_exerciseList[position])
-        holder.setExerciseRemoval()
     }
 
     override fun getItemCount() = _exerciseList.size
+
+    fun deleteItem(exercisesMutableList: MutableList<Exercise>, adapterPosition: Int) {
+        _exerciseList = exercisesMutableList
+        notifyItemRemoved(adapterPosition)
+    }
 
     inner class SelectedExercisesViewHolder(
         private val binding: ItemRemoveExerciseBinding,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(item: Exercise) {
-            Glide.with(this@SelectedExercisesViewHolder.itemView).load(item.image)
-                .into(binding.removeExerciseItemImageView)
-            binding.removeExerciseItemNameTextView.text = item.observation
-        }
-
-        fun setExerciseRemoval() {
-            binding.removeExerciseItemDeleteButton.setOnClickListener {
-                _exerciseList.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
+            with(binding) {
+                Glide.with(this@SelectedExercisesViewHolder.itemView).load(item.image)
+                    .into(removeExerciseItemImageView)
+                removeExerciseItemNameTextView.text = item.observation
+                removeExerciseItemDeleteButton.setOnClickListener {
+                    onClickDelete(adapterPosition)
+                }
             }
         }
     }

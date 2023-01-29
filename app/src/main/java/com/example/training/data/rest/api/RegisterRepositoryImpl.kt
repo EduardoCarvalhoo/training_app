@@ -17,7 +17,7 @@ class RegisterRepositoryImpl(private val firebaseUser: FirebaseAuth): RegisterRe
                     if (task.isSuccessful) {
                         registerCallback(RegisterResult.Success(FieldStatus.VALID))
                     } else {
-                        registerCallback(RegisterResult.Success(FieldStatus.VALID))
+                        registerCallback(RegisterResult.Error(FieldStatus.INVALID))
                     }
                 }
         } catch (e: Exception) {
