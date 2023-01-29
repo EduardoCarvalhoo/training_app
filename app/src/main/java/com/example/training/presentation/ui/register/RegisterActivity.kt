@@ -43,14 +43,14 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupObserver() {
         viewModel.successfullyRegisteredUserLiveData.observe(this) {
-            Toast.makeText(
+            Toast.makeText( // TODO("Adicionar dialog")
                 this, R.string.register_successfully_registered_user_toast,
                 Toast.LENGTH_LONG
             ).show()
             clearEditText()
         }
         viewModel.errorWhenRegisteringUserLiveData.observe(this) {
-            Toast.makeText(
+            Toast.makeText( // TODO("Adicionar dialog")
                 this, R.string.register_failed_to_register_user_toast,
                 Toast.LENGTH_LONG
             ).show()
