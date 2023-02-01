@@ -2,11 +2,11 @@ package com.example.training.presentation.ui.training
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.exercises.ExercisesActivity
+import com.example.training.utils.ExerciseListCache
 import com.example.training.utils.MAXIMUM_RANDOM_NUMBER
 import com.example.training.utils.showAlertDialog
 import com.example.treinoacademia.R
@@ -19,8 +19,6 @@ import kotlin.random.Random
 class TrainingCreationActivity : AppCompatActivity() {
     private val binding by lazy { ActivityTrainingCreationBinding.inflate(layoutInflater) }
     private val viewModel: TrainingCreationViewModel by viewModel()
-    private var trainingListAdapter: TrainingCreationAdapter? = null
-    private var exercisesMutableList: MutableList<Exercise> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,22 +39,26 @@ class TrainingCreationActivity : AppCompatActivity() {
 
     private fun addExercises() {
         binding.trainingCreationAddExercisesButton.setOnClickListener {
-            val intent = Intent(this, ExercisesActivity::class.java)
-            startActivity(intent)
+            viewModel.updateExerciseList()
         }
     }
 
     private fun setupObserver() {
         with(viewModel) {
             workoutCreatedSuccessLiveData.observe(this@TrainingCreationActivity) {
-                showAlertDialog(R.string.training_creation_success_saving_data)
+                showAlertDialog(R.string.training_creation_success_saving_data) {
+                    finish()
+                }
             }
             errorWhenRegisteringLiveData.observe(this@TrainingCreationActivity) {
                 showAlertDialog(R.string.training_creation_error_saving_data)
             }
             listSuccessfullyRetrievedLiveData.observe(this@TrainingCreationActivity) { exerciseList ->
-                exercisesMutableList = exerciseList.toMutableList()
-                setupRecyclerView(exercisesMutableList)
+                setupRecyclerView(exerciseList)
+            }
+            createExerciseLiveData.observe(this@TrainingCreationActivity) {
+                val intent = Intent(this@TrainingCreationActivity, ExercisesActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -80,15 +82,14 @@ class TrainingCreationActivity : AppCompatActivity() {
     ): Boolean {
         return if (random.toString()
                 .isNotEmpty() && typeOfTraining.isNotEmpty() && timeStamp.toString()
-                .isNotEmpty()
+                .isNotEmpty() && ExerciseListCache.exerciseList.isNotEmpty()
         ) {
             true
         } else {
-            Toast.makeText(this, R.string.training_empty_field_text, Toast.LENGTH_LONG).show()
+            showAlertDialog(R.string.training_empty_field_text)
             false
         }
     }
-
 
     override fun onResume() {
         super.onResume()
@@ -96,14 +97,8 @@ class TrainingCreationActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(exerciseList: List<Exercise>) {
-        trainingListAdapter = TrainingCreationAdapter(exerciseList) { adapterPosition ->
-            deleteItem(adapterPosition)
+        binding.trainingCreationRecyclerView.adapter = TrainingCreationAdapter(exerciseList) {
+            viewModel.getSelectedExerciseList()
         }
-        binding.trainingCreationRecyclerView.adapter = trainingListAdapter
-    }
-
-    private fun deleteItem(adapterPosition: Int) {
-        exercisesMutableList.removeAt(adapterPosition)
-        trainingListAdapter?.deleteItem(exercisesMutableList, adapterPosition)
     }
 }

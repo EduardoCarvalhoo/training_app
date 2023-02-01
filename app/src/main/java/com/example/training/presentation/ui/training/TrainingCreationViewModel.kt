@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.training.data.repository.TrainingCreationRepository
-import com.example.training.data.response.ListOfSelectedExercises
-import com.example.training.data.response.TrainingCreationResult
-import com.example.training.domain.model.Exercise
-import com.example.training.domain.model.FieldStatus
-import com.example.training.domain.model.Training
+import com.example.training.data.repository.ExercisesRepository
+import com.example.training.data.repository.TrainingRepository
+import com.example.training.domain.model.*
 import kotlinx.coroutines.launch
 
-class TrainingCreationViewModel(private val creationRepository: TrainingCreationRepository) : ViewModel() {
+class TrainingCreationViewModel(
+    private val trainingRepository: TrainingRepository,
+    private val exercisesRepository: ExercisesRepository
+) : ViewModel() {
     private val workoutCreatedSuccessMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
     val workoutCreatedSuccessLiveData: LiveData<Enum<FieldStatus>> =
         workoutCreatedSuccessMutableLiveData
@@ -22,10 +22,14 @@ class TrainingCreationViewModel(private val creationRepository: TrainingCreation
     private val listSuccessfullyRetrievedMutableLiveData = MutableLiveData<List<Exercise>>()
     val listSuccessfullyRetrievedLiveData: LiveData<List<Exercise>> =
         listSuccessfullyRetrievedMutableLiveData
+    private val createExerciseMutableLiveData = MutableLiveData<Unit>()
+    val createExerciseLiveData: LiveData<Unit> = createExerciseMutableLiveData
+
+    private var exerciseList: List<Exercise> = emptyList()
 
     fun setupTrainingRecord(training: Training) {
         viewModelScope.launch {
-            creationRepository.setupTraining(training) { result: TrainingCreationResult ->
+            trainingRepository.saveTraining(training) { result: TrainingCreationResult ->
                 when (result) {
                     is TrainingCreationResult.Success -> {
                         workoutCreatedSuccessMutableLiveData.postValue(result.value)
@@ -38,13 +42,25 @@ class TrainingCreationViewModel(private val creationRepository: TrainingCreation
         }
     }
 
+    fun updateExerciseList() {
+        viewModelScope.launch {
+            exercisesRepository.saveExerciseListInCache(exerciseList)
+            createExerciseMutableLiveData.postValue(Unit)
+        }
+    }
+
     fun getSelectedExerciseList() {
         viewModelScope.launch {
-            creationRepository.getExercises { listOfSelectedExercises ->
-                when (listOfSelectedExercises) {
-                    is ListOfSelectedExercises.Success -> {
-                        listSuccessfullyRetrievedMutableLiveData.postValue(listOfSelectedExercises.list)
+            exercisesRepository.getExercisesInCache { exercisesResult ->
+                when (exercisesResult) {
+                    is ExercisesResult.Success -> {
+                        exerciseList = exercisesResult.value
+                        val getSelectedExercises = exerciseList.filter {
+                            it.isSelected
+                        }
+                        listSuccessfullyRetrievedMutableLiveData.postValue(getSelectedExercises)
                     }
+                    is ExercisesResult.Error -> return@getExercisesInCache
                 }
             }
         }

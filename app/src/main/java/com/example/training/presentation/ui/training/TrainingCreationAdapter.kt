@@ -8,29 +8,24 @@ import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.databinding.ItemRemoveExerciseBinding
 
 class TrainingCreationAdapter(
-    private val exercises: List<Exercise>, private val onClickDelete: (Int) -> Unit
+    private val exercises: List<Exercise>, private val onItemClickDelete: () -> Unit
 ) : RecyclerView.Adapter<TrainingCreationAdapter.SelectedExercisesViewHolder>() {
-    private var _exerciseList: MutableList<Exercise> = exercises.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedExercisesViewHolder {
         val view =
             ItemRemoveExerciseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return SelectedExercisesViewHolder(view)
+        return SelectedExercisesViewHolder(view, onItemClickDelete)
     }
 
     override fun onBindViewHolder(holder: SelectedExercisesViewHolder, position: Int) {
-        holder.bindView(_exerciseList[position])
+        holder.bindView(exercises[position])
     }
 
-    override fun getItemCount() = _exerciseList.size
-
-    fun deleteItem(exercisesMutableList: MutableList<Exercise>, adapterPosition: Int) {
-        _exerciseList = exercisesMutableList
-        notifyItemRemoved(adapterPosition)
-    }
+    override fun getItemCount() = exercises.size
 
     inner class SelectedExercisesViewHolder(
         private val binding: ItemRemoveExerciseBinding,
+        private val onItemClickDelete: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(item: Exercise) {
@@ -38,8 +33,10 @@ class TrainingCreationAdapter(
                 Glide.with(this@SelectedExercisesViewHolder.itemView).load(item.image)
                     .into(removeExerciseItemImageView)
                 removeExerciseItemNameTextView.text = item.observation
+
                 removeExerciseItemDeleteButton.setOnClickListener {
-                    onClickDelete(adapterPosition)
+                    item.isSelected = false
+                    onItemClickDelete.invoke()
                 }
             }
         }

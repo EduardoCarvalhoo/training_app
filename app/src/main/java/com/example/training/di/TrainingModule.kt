@@ -1,4 +1,4 @@
-package com.example.training.data.di
+package com.example.training.di
 
 import com.example.training.data.repository.*
 import com.example.training.data.rest.api.*
@@ -31,16 +31,15 @@ val registerModule = module {
 }
 
 val homeModule = module {
-    single<HomeRepository> {HomeRepositoryImpl(get()) }
-    viewModel{HomeViewModel(dataRepository = get())}
+    viewModel { HomeViewModel(trainingRepository = get()) }
 }
 
 val trainingCreation = module {
-    single<TrainingCreationRepository> { TrainingCreationRepositoryImpl(ExerciseListCache, get()) }
-    viewModel { TrainingCreationViewModel(creationRepository = get()) }
+    single<TrainingRepository> { TrainingRepositoryImpl(get()) }
+    viewModel { TrainingCreationViewModel(trainingRepository = get(), exercisesRepository = get()) }
 }
 
 val exercisesModule = module {
     single<ExercisesRepository> { ExercisesRepositoryImpl(ExerciseListCache, get()) }
-    viewModel{ ExercisesViewModel(exercisesRepository = get()) }
+    viewModel { ExercisesViewModel(exercisesRepository = get()) }
 }

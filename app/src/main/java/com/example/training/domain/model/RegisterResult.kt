@@ -1,6 +1,4 @@
-package com.example.training.data.response
-
-import com.example.training.domain.model.FieldStatus
+package com.example.training.domain.model
 
 sealed class RegisterResult {
     data class Success(val value: FieldStatus): RegisterResult()

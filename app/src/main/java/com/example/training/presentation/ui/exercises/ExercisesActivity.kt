@@ -11,20 +11,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class ExercisesActivity : AppCompatActivity() {
     private val binding by lazy { ActivityExercisesBinding.inflate(layoutInflater) }
     private val viewModel: ExercisesViewModel by viewModel()
-    private var exercisesAdapter: ExercisesAdapter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         setupToolbar()
-        readExerciseList()
+        viewModel.getExerciseList()
         setupObserver()
         passSelectedExercises()
-    }
-
-    private fun readExerciseList() {
-        viewModel.setExerciseList()
     }
 
     private fun setupToolbar() {
@@ -42,20 +36,19 @@ class ExercisesActivity : AppCompatActivity() {
             showAlertDialog(errorMessage)
         }
         viewModel.successfullySaveExerciseListLiveData.observe(this) {
-            finish()
+            showAlertDialog(R.string.exercises_successfully_added_text){
+                finish()
+            }
         }
     }
 
     private fun setupRecyclerView(exercises: List<Exercise>) {
-        exercisesAdapter = ExercisesAdapter(exercises)
-        binding.exercisesRecyclerView.adapter = exercisesAdapter
+        binding.exercisesRecyclerView.adapter = ExercisesAdapter(exercises)
     }
 
     private fun passSelectedExercises() {
         binding.exercisesSaveExercisesButton.setOnClickListener {
-            exercisesAdapter?.let {
-                viewModel.saveExerciseList(it.selectedExercisesList)
-            }
+            viewModel.saveExerciseList()
         }
     }
 }

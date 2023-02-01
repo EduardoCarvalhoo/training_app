@@ -17,7 +17,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupToolbar()
-        receiveUserData()
+        getUserData()
         setupObserver()
         configureTextChange()
     }
@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
     }
 
-    private fun receiveUserData() {
+    private fun getUserData() {
         with(binding) {
             registerUserButton.setOnClickListener {
                 val user = User(
@@ -44,8 +44,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupObserver() {
         viewModel.successfullyRegisteredUserLiveData.observe(this) {
-            showAlertDialog(R.string.register_successfully_registered_user)
             clearEditText()
+            showAlertDialog(it){
+                finish()
+            }
         }
         viewModel.errorWhenRegisteringUserLiveData.observe(this) {
             showAlertDialog(it)

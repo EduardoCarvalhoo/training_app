@@ -17,7 +17,7 @@
     <!-- Register -->
     <string name="register_user_text_toolbar">Cadastrar Usuário</string>
     <string name="register_successfully_registered_user">Usuário cadastrado com sucesso</string>
-    <string name="register_failed_to_register_user">Falha ao registrar usuário</string>
+    <string name="register_failed_to_register_user">Falha ao registrar usuário, tente novamente!</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
     <string name="register_password_error_message_text">Senha deve no mínimo 6 digitos</string>
@@ -39,7 +39,7 @@
     <string name="training_creation_button_description">Botão criar treino</string>
     <string name="training_creation_success_saving_data">Treino criado com sucesso</string>
     <string name="training_creation_error_saving_data">Erro ao criar treino</string>
-    <string name="training_empty_field_text">Campo vazio</string>
+    <string name="training_empty_field_text">Campo de treino vazio ou sem exercício adicionado</string>
 
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>

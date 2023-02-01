@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.ExercisesRepository
-import com.example.training.data.response.ExercisesResult
 import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Exercise
+import com.example.training.domain.model.ExercisesResult
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
@@ -17,14 +17,36 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
     private val errorReadingDataMutableLiveData = MutableLiveData<Int>()
     val errorReadingDataLiveData: LiveData<Int> = errorReadingDataMutableLiveData
     private val successfullySaveExerciseListMutableLiveData = MutableLiveData<Unit>()
-    val successfullySaveExerciseListLiveData: LiveData<Unit> = successfullySaveExerciseListMutableLiveData
+    val successfullySaveExerciseListLiveData: LiveData<Unit> =
+        successfullySaveExerciseListMutableLiveData
+    private var exerciseList: List<Exercise> = emptyList()
 
-    fun setExerciseList() {
+    fun getExerciseList() {
+        viewModelScope.launch {
+            exercisesRepository.getExercisesInCache { result ->
+                when (result) {
+                    is ExercisesResult.Error -> {
+                        when (result.value) {
+                            ErrorStatus.EMPTY_LIST_ERROR -> getExerciseListInServer()
+                            else -> return@getExercisesInCache
+                        }
+                    }
+                    is ExercisesResult.Success -> {
+                        exerciseList = result.value
+                        dataReadSuccessfullyMutableLiveData.postValue(exerciseList)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getExerciseListInServer() {
         viewModelScope.launch {
             exercisesRepository.getExerciseList { result ->
                 when (result) {
                     is ExercisesResult.Success -> {
-                        dataReadSuccessfullyMutableLiveData.postValue(result.value)
+                        exerciseList = result.value
+                        dataReadSuccessfullyMutableLiveData.postValue(exerciseList)
                     }
                     is ExercisesResult.Error -> {
                         if (result.value == ErrorStatus.EMPTY_LIST_ERROR) {
@@ -38,7 +60,7 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
         }
     }
 
-    fun saveExerciseList(exerciseList: List<Exercise>){
+    fun saveExerciseList() {
         viewModelScope.launch {
             exercisesRepository.saveExerciseListInCache(exerciseList)
             successfullySaveExerciseListMutableLiveData.postValue(Unit)

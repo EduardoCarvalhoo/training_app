@@ -1,13 +1,13 @@
 package com.example.training.data.rest.api
 
 import com.example.training.data.repository.RegisterRepository
-import com.example.training.data.response.RegisterResult
+import com.example.training.domain.model.RegisterResult
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.User
 import com.google.firebase.auth.FirebaseAuth
 
 class RegisterRepositoryImpl(private val firebaseUser: FirebaseAuth): RegisterRepository {
-    override suspend fun getUserRegistration(
+    override suspend fun createUser(
         user: User,
         registerCallback: (register: RegisterResult) -> Unit
     ) {

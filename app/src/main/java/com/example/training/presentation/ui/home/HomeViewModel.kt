@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.training.data.repository.HomeRepository
-import com.example.training.data.response.HomeResult
+import com.example.training.data.repository.TrainingRepository
+import com.example.training.domain.model.TrainingListResult
 import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Training
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val dataRepository: HomeRepository) : ViewModel() {
+class HomeViewModel(private val trainingRepository: TrainingRepository) : ViewModel() {
     private val dataReadSuccessfullyMutableLiveData = MutableLiveData<List<Training>>()
     val dataReadSuccessfullyLiveData: LiveData<List<Training>> = dataReadSuccessfullyMutableLiveData
     private val errorReadingDataMutableLiveData = MutableLiveData<Int>()
@@ -19,12 +19,12 @@ class HomeViewModel(private val dataRepository: HomeRepository) : ViewModel() {
 
     fun getTrainingList() {
         viewModelScope.launch {
-            dataRepository.getTrainingData { result ->
+            trainingRepository.getTrainingData { result ->
                 when (result) {
-                    is HomeResult.Success -> {
+                    is TrainingListResult.Success -> {
                         dataReadSuccessfullyMutableLiveData.postValue(result.value)
                     }
-                    is HomeResult.Error -> {
+                    is TrainingListResult.Error -> {
                         if (result.value == ErrorStatus.EMPTY_LIST_ERROR) {
                             errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_toast)
                         } else {

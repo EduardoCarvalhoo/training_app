@@ -1,4 +1,4 @@
-package com.example.training.data.di
+package com.example.training.di
 
 import android.app.Application
 import org.koin.android.ext.koin.androidContext

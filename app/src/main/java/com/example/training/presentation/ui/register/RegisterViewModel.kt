@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.RegisterRepository
-import com.example.training.data.response.RegisterResult
+import com.example.training.domain.model.RegisterResult
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.User
 import com.example.treinoacademia.R
@@ -28,7 +28,7 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
             if (isValidEmail && isValidPassword) {
-                registerRepository.getUserRegistration(user) { register ->
+                registerRepository.createUser(user) { register ->
                     when (register) {
                         is RegisterResult.Success -> {
                             successfullyRegisteredUserMutableLiveData.postValue(R.string.register_successfully_registered_user)

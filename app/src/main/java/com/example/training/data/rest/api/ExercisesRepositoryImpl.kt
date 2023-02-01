@@ -1,9 +1,10 @@
 package com.example.training.data.rest.api
 
 import com.example.training.data.repository.ExercisesRepository
-import com.example.training.data.response.ExercisesResult
+import com.example.training.data.response.ExerciseResponse
 import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Exercise
+import com.example.training.domain.model.ExercisesResult
 import com.example.training.utils.EXERCISES
 import com.example.training.utils.EXERCISE_LIST
 import com.example.training.utils.ExerciseListCache
@@ -19,18 +20,16 @@ class ExercisesRepositoryImpl(
     ) {
         database.collection(USERS).document(EXERCISES).collection(EXERCISE_LIST)
             .get().addOnSuccessListener { documentsList ->
-                if (documentsList != null) {
-                    val dataList: ArrayList<Exercise> = arrayListOf()
-                    for (document in documentsList) {
-                        val exerciseData = document.toObject(Exercise::class.java)
-                        val exercise = Exercise(
-                            exerciseData.name,
-                            exerciseData.image,
-                            exerciseData.observation
+                if (documentsList != null && !documentsList.isEmpty) {
+                    val exerciseList = documentsList.map {
+                        val exerciseResponse = it.toObject(ExerciseResponse::class.java)
+                        Exercise(
+                            exerciseResponse.name,
+                            exerciseResponse.image,
+                            exerciseResponse.observation
                         )
-                        dataList.add(exercise)
                     }
-                    exercisesCallBack(ExercisesResult.Success(dataList))
+                    exercisesCallBack(ExercisesResult.Success(exerciseList))
                 } else {
                     exercisesCallBack(ExercisesResult.Error(ErrorStatus.EMPTY_LIST_ERROR))
                 }
@@ -41,5 +40,15 @@ class ExercisesRepositoryImpl(
 
     override suspend fun saveExerciseListInCache(exerciseList: List<Exercise>) {
         exerciseListCache.exerciseList = exerciseList
+    }
+
+    override suspend fun getExercisesInCache(resultListCallback: (result: ExercisesResult) -> Unit) {
+        resultListCallback(
+            if (exerciseListCache.exerciseList.isEmpty()) {
+                ExercisesResult.Error(ErrorStatus.EMPTY_LIST_ERROR)
+            } else {
+                ExercisesResult.Success(exerciseListCache.exerciseList)
+            }
+        )
     }
 }

@@ -6,6 +6,4 @@ class Training(
     val name: Int?,
     val description: String?,
     val data: Timestamp?
-){
-    constructor(): this(null, null, null) // Para poder desserializar
-}
+)

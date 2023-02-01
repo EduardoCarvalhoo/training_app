@@ -1,9 +1,7 @@
 package com.example.training.domain.model
-
-class Exercise(
-    val name: Int?,
-    val image: String?,
-    val observation: String?
-){
-    constructor(): this(null, null, null)
-}
+data class Exercise(
+    val name: Int = 0,
+    val image: String = "",
+    val observation: String = "",
+    var isSelected: Boolean = false
+)
