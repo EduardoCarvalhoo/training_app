@@ -3,9 +3,7 @@ package com.example.training.data.rest.api
 import com.example.training.data.repository.TrainingRepository
 import com.example.training.data.response.TrainingResponse
 import com.example.training.domain.model.*
-import com.example.training.utils.TRAINING
-import com.example.training.utils.TRAINING_LIST
-import com.example.training.utils.USERS
+import com.example.training.utils.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TrainingRepositoryImpl(
@@ -14,17 +12,24 @@ class TrainingRepositoryImpl(
 
     override suspend fun saveTraining(
         training: Training,
+        getSelectedExercises: List<Exercise>,
         resultCallback: (result: TrainingCreationResult) -> Unit
     ) {
         try {
-            database.collection(USERS).document(TRAINING).collection(TRAINING_LIST).add(training)
-                .addOnCompleteListener {
-                    resultCallback(TrainingCreationResult.Success(FieldStatus.VALID))
-                }.addOnFailureListener {
-                    resultCallback(TrainingCreationResult.Error(FieldStatus.INVALID))
+            SelectedExercisesCache.selectedExercisesCache = getSelectedExercises
+            database.collection(USERS).document(TRAINING).collection(TRAINING_LIST)
+                .document(training.description.toString()).set(training)
+            database.collection(USERS).document(EXERCISES).collection(SELECTED_EXERCISES)
+                .document(training.data.toString()).set(SelectedExercisesCache)
+                .addOnCompleteListener { task ->
+                    when {
+                        task.isSuccessful -> {
+                            resultCallback(TrainingCreationResult.Success(Status.SUCCESS))
+                        }
+                    }
                 }
         } catch (e: Exception) {
-            resultCallback(TrainingCreationResult.Error(FieldStatus.INVALID))
+            resultCallback(TrainingCreationResult.Error(Status.FAILURE))
         }
     }
 
@@ -44,10 +49,10 @@ class TrainingRepositoryImpl(
                     }
                     resultCallback(TrainingListResult.Success(trainingList))
                 } else {
-                    resultCallback(TrainingListResult.Error(ErrorStatus.EMPTY_LIST_ERROR))
+                    resultCallback(TrainingListResult.Error(Status.EMPTY_LIST_ERROR))
                 }
             }.addOnFailureListener {
-                resultCallback(TrainingListResult.Error(ErrorStatus.SERVER_ERROR))
+                resultCallback(TrainingListResult.Error(Status.SERVER_ERROR))
             }
     }
 }

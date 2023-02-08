@@ -7,17 +7,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.ExercisesRepository
 import com.example.training.data.repository.TrainingRepository
 import com.example.training.domain.model.*
+import com.example.training.utils.Status
+import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
 class TrainingCreationViewModel(
     private val trainingRepository: TrainingRepository,
     private val exercisesRepository: ExercisesRepository
 ) : ViewModel() {
-    private val workoutCreatedSuccessMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val workoutCreatedSuccessLiveData: LiveData<Enum<FieldStatus>> =
+    private val workoutCreatedSuccessMutableLiveData = MutableLiveData<Enum<Status>>()
+    val workoutCreatedSuccessLiveData: LiveData<Enum<Status>> =
         workoutCreatedSuccessMutableLiveData
-    private val errorWhenRegisteringMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val errorWhenRegisteringLiveData: LiveData<Enum<FieldStatus>> =
+    private val errorWhenRegisteringMutableLiveData = MutableLiveData<Int>()
+    val errorWhenRegisteringLiveData: LiveData<Int> =
         errorWhenRegisteringMutableLiveData
     private val listSuccessfullyRetrievedMutableLiveData = MutableLiveData<List<Exercise>>()
     val listSuccessfullyRetrievedLiveData: LiveData<List<Exercise>> =
@@ -26,16 +28,27 @@ class TrainingCreationViewModel(
     val createExerciseLiveData: LiveData<Unit> = createExerciseMutableLiveData
 
     private var exerciseList: List<Exercise> = emptyList()
+    private var getSelectedExercises: List<Exercise> = emptyList()
 
     fun setupTrainingRecord(training: Training) {
         viewModelScope.launch {
-            trainingRepository.saveTraining(training) { result: TrainingCreationResult ->
+            trainingRepository.saveTraining(
+                training,
+                getSelectedExercises
+            ) { result: TrainingCreationResult ->
                 when (result) {
                     is TrainingCreationResult.Success -> {
                         workoutCreatedSuccessMutableLiveData.postValue(result.value)
                     }
                     is TrainingCreationResult.Error -> {
-                        errorWhenRegisteringMutableLiveData.postValue(result.value)
+                        when (result.value) {
+                            Status.FAILURE -> {
+                                errorWhenRegisteringMutableLiveData.postValue(R.string.training_creation_error_saving_data)
+                            }
+                            else -> {
+                                return@saveTraining
+                            }
+                        }
                     }
                 }
             }
@@ -55,7 +68,7 @@ class TrainingCreationViewModel(
                 when (exercisesResult) {
                     is ExercisesResult.Success -> {
                         exerciseList = exercisesResult.value
-                        val getSelectedExercises = exerciseList.filter {
+                        getSelectedExercises = exerciseList.filter {
                             it.isSelected
                         }
                         listSuccessfullyRetrievedMutableLiveData.postValue(getSelectedExercises)
