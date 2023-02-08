@@ -6,4 +6,5 @@ const val EXERCISE_LIST = "ExerciseList"
 const val USERS = "User"
 const val MAXIMUM_RANDOM_NUMBER = 1000
 const val TRAINING_LIST = "Traininglist"
+const val SELECTED_EXERCISES = "SelectedExercises"
 

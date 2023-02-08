@@ -5,23 +5,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.LoginRepository
-import com.example.training.domain.model.LoginResult
 import com.example.training.domain.model.FieldStatus
+import com.example.training.domain.model.LoginResult
 import com.example.training.domain.model.User
+import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
-    private val loginSuccessMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val loginSuccessLiveData: LiveData<Enum<FieldStatus>> = loginSuccessMutableLiveData
-    private val loginErrorMutableLiveData = MutableLiveData<Enum<FieldStatus>>()
-    val loginErrorLiveData: LiveData<Enum<FieldStatus>> = loginErrorMutableLiveData
+    private val loginSuccessMutableLiveData = MutableLiveData<Enum<Status>>()
+    val loginSuccessLiveData: LiveData<Enum<Status>> = loginSuccessMutableLiveData
+    private val loginErrorMutableLiveData = MutableLiveData<Int>()
+    val loginErrorLiveData: LiveData<Int> = loginErrorMutableLiveData
     private val emailErrorMessageMutableLiveData = MutableLiveData<Int?>()
     val emailErrorMessageLiveData: LiveData<Int?> = emailErrorMessageMutableLiveData
     private val passwordErrorMessageMutableLiveData = MutableLiveData<Int?>()
     val passwordErrorMessageLiveData: LiveData<Int?> = passwordErrorMessageMutableLiveData
 
-    fun doLogin(user: User) {
+    fun login(user: User) {
         viewModelScope.launch {
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
@@ -32,7 +33,20 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                             loginSuccessMutableLiveData.postValue(result.value)
                         }
                         is LoginResult.Error -> {
-                            loginErrorMutableLiveData.postValue(result.value)
+                            when (result.value) {
+                                Status.NO_INTERNET_SIGNAL -> {
+                                    loginErrorMutableLiveData.postValue(R.string.login_no_internet_connection_error)
+                                }
+                                Status.UNAUTHORIZED_USER -> {
+                                    loginErrorMutableLiveData.postValue(R.string.login_unauthenticated_user)
+                                }
+                                Status.SERVER_ERROR -> {
+                                    loginErrorMutableLiveData.postValue(R.string.login_server_error)
+                                }
+                                else -> {
+                                    return@doLogin
+                                }
+                            }
                         }
                     }
                 }

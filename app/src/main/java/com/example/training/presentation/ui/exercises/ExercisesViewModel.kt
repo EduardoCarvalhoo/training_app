@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.ExercisesRepository
-import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.ExercisesResult
+import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,7 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
                 when (result) {
                     is ExercisesResult.Error -> {
                         when (result.value) {
-                            ErrorStatus.EMPTY_LIST_ERROR -> getExerciseListInServer()
+                            Status.EMPTY_LIST_ERROR -> getExerciseListInServer()
                             else -> return@getExercisesInCache
                         }
                     }
@@ -49,10 +49,14 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
                         dataReadSuccessfullyMutableLiveData.postValue(exerciseList)
                     }
                     is ExercisesResult.Error -> {
-                        if (result.value == ErrorStatus.EMPTY_LIST_ERROR) {
-                            errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_toast)
-                        } else {
-                            errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_from_server_toast)
+                        when (result.value) {
+                            Status.EMPTY_LIST_ERROR -> {
+                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_toast)
+                            }
+                            Status.SERVER_ERROR -> {
+                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_from_server_toast)
+                            }
+                            else -> return@getExerciseList
                         }
                     }
                 }

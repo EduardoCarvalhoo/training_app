@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.RegisterRepository
-import com.example.training.domain.model.RegisterResult
 import com.example.training.domain.model.FieldStatus
+import com.example.training.domain.model.RegisterResult
 import com.example.training.domain.model.User
+import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
@@ -34,9 +35,18 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
                             successfullyRegisteredUserMutableLiveData.postValue(R.string.register_successfully_registered_user)
                         }
                         is RegisterResult.Error -> {
-                            errorWhenRegisteringUserMutableLiveData.postValue(
-                                R.string.register_failed_to_register_user
-                            )
+                            when (register.value) {
+                                Status.NO_INTERNET_SIGNAL -> {
+                                    errorWhenRegisteringUserMutableLiveData.postValue(R.string.login_no_internet_connection_error)
+                                }
+                                Status.EMAIL_ALREADY_EXISTS -> {
+                                    errorWhenRegisteringUserMutableLiveData.postValue(R.string.register_email_already_registered)
+                                }
+                                Status.SERVER_ERROR -> {
+                                    errorWhenRegisteringUserMutableLiveData.postValue(R.string.register_failed_to_register_user)
+                                }
+                                else -> {return@createUser}
+                            }
                         }
                     }
                 }

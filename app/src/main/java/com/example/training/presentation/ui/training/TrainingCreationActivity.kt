@@ -44,22 +44,20 @@ class TrainingCreationActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        with(viewModel) {
-            workoutCreatedSuccessLiveData.observe(this@TrainingCreationActivity) {
-                showAlertDialog(R.string.training_creation_success_saving_data) {
-                    finish()
-                }
+        viewModel.workoutCreatedSuccessLiveData.observe(this) {
+            showAlertDialog(R.string.training_creation_success_saving_data) {
+                finish()
             }
-            errorWhenRegisteringLiveData.observe(this@TrainingCreationActivity) {
-                showAlertDialog(R.string.training_creation_error_saving_data)
-            }
-            listSuccessfullyRetrievedLiveData.observe(this@TrainingCreationActivity) { exerciseList ->
-                setupRecyclerView(exerciseList)
-            }
-            createExerciseLiveData.observe(this@TrainingCreationActivity) {
-                val intent = Intent(this@TrainingCreationActivity, ExercisesActivity::class.java)
-                startActivity(intent)
-            }
+        }
+        viewModel.errorWhenRegisteringLiveData.observe(this) { errorMessageCode ->
+            showAlertDialog(errorMessageCode)
+        }
+        viewModel.listSuccessfullyRetrievedLiveData.observe(this) { exerciseList ->
+            setupRecyclerView(exerciseList)
+        }
+        viewModel.createExerciseLiveData.observe(this) {
+            val intent = Intent(this, ExercisesActivity::class.java)
+            startActivity(intent)
         }
     }
 

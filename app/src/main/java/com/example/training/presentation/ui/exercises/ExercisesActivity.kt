@@ -33,7 +33,9 @@ class ExercisesActivity : AppCompatActivity() {
             setupRecyclerView(exercisesList)
         }
         viewModel.errorReadingDataLiveData.observe(this) { errorMessage ->
-            showAlertDialog(errorMessage)
+            showAlertDialog(errorMessage){
+                finish()
+            }
         }
         viewModel.successfullySaveExerciseListLiveData.observe(this) {
             showAlertDialog(R.string.exercises_successfully_added_text){

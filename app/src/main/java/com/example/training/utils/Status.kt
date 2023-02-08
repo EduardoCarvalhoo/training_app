@@ -1,0 +1,6 @@
+package com.example.training.utils
+
+enum class Status {
+    SUCCESS, FAILURE, UNAUTHORIZED_USER, NO_INTERNET_SIGNAL, SERVER_ERROR, EMAIL_ALREADY_EXISTS,
+    EMPTY_LIST_ERROR
+}

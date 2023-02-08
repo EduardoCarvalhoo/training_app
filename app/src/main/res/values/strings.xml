@@ -12,7 +12,10 @@
     <string name="login_email_error_message_text">Email no formato inválido</string>
     <string name="login_password_error_message_text">Senha deve ser no mínimo 6 digitos </string>
     <string name="login_User_authenticated_successfully_toast">Usuário autenticado com sucesso</string>
-    <string name="login_unauthenticated_user_toast">Usuário não autenticado</string>
+    <string name="login_unauthenticated_user">Usuário não autorizado!</string>
+    <string name="login_no_internet_connection_error">Sem conexão com a internet. Tente novamente!</string>
+    <string name="login_server_error">Erro de servidor, tente mais tarde!</string>
+"
 
     <!-- Register -->
     <string name="register_user_text_toolbar">Cadastrar Usuário</string>
@@ -21,6 +24,7 @@
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
     <string name="register_password_error_message_text">Senha deve no mínimo 6 digitos</string>
+    <string name="register_email_already_registered">Conta já cadastrada, tente novamente!</string>
 
     <!-- Home -->
     <string name="home_title_text">Treinos</string>

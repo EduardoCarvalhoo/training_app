@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.TrainingRepository
 import com.example.training.domain.model.TrainingListResult
-import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Training
+import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ class HomeViewModel(private val trainingRepository: TrainingRepository) : ViewMo
                         dataReadSuccessfullyMutableLiveData.postValue(result.value)
                     }
                     is TrainingListResult.Error -> {
-                        if (result.value == ErrorStatus.EMPTY_LIST_ERROR) {
+                        if (result.value == Status.EMPTY_LIST_ERROR) {
                             errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_toast)
                         } else {
                             errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_from_server_toast)

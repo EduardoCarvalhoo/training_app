@@ -2,13 +2,9 @@ package com.example.training.data.rest.api
 
 import com.example.training.data.repository.ExercisesRepository
 import com.example.training.data.response.ExerciseResponse
-import com.example.training.domain.model.ErrorStatus
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.ExercisesResult
-import com.example.training.utils.EXERCISES
-import com.example.training.utils.EXERCISE_LIST
-import com.example.training.utils.ExerciseListCache
-import com.example.training.utils.USERS
+import com.example.training.utils.*
 import com.google.firebase.firestore.FirebaseFirestore
 
 class ExercisesRepositoryImpl(
@@ -31,10 +27,10 @@ class ExercisesRepositoryImpl(
                     }
                     exercisesCallBack(ExercisesResult.Success(exerciseList))
                 } else {
-                    exercisesCallBack(ExercisesResult.Error(ErrorStatus.EMPTY_LIST_ERROR))
+                    exercisesCallBack(ExercisesResult.Error(Status.EMPTY_LIST_ERROR))
                 }
             }.addOnFailureListener {
-                exercisesCallBack(ExercisesResult.Error(ErrorStatus.SERVER_ERROR))
+                exercisesCallBack(ExercisesResult.Error(Status.SERVER_ERROR))
             }
     }
 
@@ -45,7 +41,7 @@ class ExercisesRepositoryImpl(
     override suspend fun getExercisesInCache(resultListCallback: (result: ExercisesResult) -> Unit) {
         resultListCallback(
             if (exerciseListCache.exerciseList.isEmpty()) {
-                ExercisesResult.Error(ErrorStatus.EMPTY_LIST_ERROR)
+                ExercisesResult.Error(Status.EMPTY_LIST_ERROR)
             } else {
                 ExercisesResult.Success(exerciseListCache.exerciseList)
             }

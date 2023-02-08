@@ -35,7 +35,7 @@ class LoginActivity : AppCompatActivity() {
                     email = loginEmailEditText.text?.toString().orEmpty(),
                     password = loginPasswordEditText.text?.toString().orEmpty()
                 )
-                viewModel.doLogin(user)
+                viewModel.login(user)
             }
         }
     }
@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.loginErrorLiveData.observe(this) {
-            showAlertDialog(R.string.login_unauthenticated_user_toast)
+            showAlertDialog(it)
         }
 
         viewModel.emailErrorMessageLiveData.observe(this) { emailErrorCode ->
