@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.training.presentation.ui.update.UpdateTrainingActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/update_training_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#215FDA"
+        app:titleTextColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/update_training_description_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:padding="12dp"
+        android:text="@string/training_creation_description_text"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/update_training_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/update_training_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/update_training_toolbar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/update_training_layout_edit_text"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:autofillHints="Name"
+        android:hint="@string/training_creation_type_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/update_training_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/update_training_start_guideline"
+        app:layout_constraintTop_toBottomOf="@id/update_training_description_text_view">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/update_training_field_edit_text"
+            android:layout_width="match_parent"
+            android:inputType="text"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/update_training_add_exercises_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16dp"
+        android:drawableEnd="@drawable/ic_add_circle"
+        android:text="@string/training_creation_add_exercises_text"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:gravity="start"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/update_training_end_guideline"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="@+id/update_training_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/update_training_layout_edit_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/update_training_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/update_training_button"
+        app:layout_constraintEnd_toStartOf="@+id/update_training_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/update_training_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/update_training_add_exercises_button"
+        tools:listitem="@layout/item_remove_exercise"
+        tools:itemCount="4"/>
+
+    <Button
+        android:id="@+id/update_training_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@drawable/ic_button_background_selector"
+        android:contentDescription="@string/update_training_button_description"
+        android:text="@string/update_training_button"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/update_training_end_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/update_training_start_guideline" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/update_training_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="30dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/update_training_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="30dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
