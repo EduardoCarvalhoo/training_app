@@ -1,20 +1,20 @@
 package com.example.training.data.rest.api
 
 import com.example.training.data.repository.LoginRepository
+import com.example.training.data.request.UserRequest
 import com.example.training.domain.model.LoginResult
-import com.example.training.domain.model.User
-import com.example.training.utils.*
+import com.example.training.utils.Status
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 
 class LoginRepositoryImpl(private val firebaseUser: FirebaseAuth) : LoginRepository {
     override suspend fun doLogin(
-        user: User,
+        userRequest: UserRequest,
         loginResultCallback: (login: LoginResult) -> Unit
     ) {
         try {
-            firebaseUser.signInWithEmailAndPassword(user.email, user.password)
+            firebaseUser.signInWithEmailAndPassword(userRequest.email, userRequest.password)
                 .addOnCompleteListener { task ->
                     when {
                         task.isSuccessful -> {

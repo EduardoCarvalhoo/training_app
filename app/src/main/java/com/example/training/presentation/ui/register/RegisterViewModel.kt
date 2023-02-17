@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.RegisterRepository
+import com.example.training.data.request.UserRequest
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.RegisterResult
 import com.example.training.domain.model.User
@@ -29,7 +30,8 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
             if (isValidEmail && isValidPassword) {
-                registerRepository.createUser(user) { register ->
+                val userRequest = UserRequest(user.email, user.password)
+                registerRepository.createUser(userRequest) { register ->
                     when (register) {
                         is RegisterResult.Success -> {
                             successfullyRegisteredUserMutableLiveData.postValue(R.string.register_successfully_registered_user)
@@ -45,7 +47,9 @@ class RegisterViewModel(private val registerRepository: RegisterRepository) : Vi
                                 Status.SERVER_ERROR -> {
                                     errorWhenRegisteringUserMutableLiveData.postValue(R.string.register_failed_to_register_user)
                                 }
-                                else -> {return@createUser}
+                                else -> {
+                                    return@createUser
+                                }
                             }
                         }
                     }

@@ -1,11 +1,11 @@
 package com.example.training.data.repository
 
+import com.example.training.data.request.UserRequest
 import com.example.training.domain.model.LoginResult
-import com.example.training.domain.model.User
 
 interface LoginRepository {
     suspend fun doLogin(
-        user: User,
+        userRequest: UserRequest,
         loginResultCallback: (login: LoginResult) -> Unit
     )
 }

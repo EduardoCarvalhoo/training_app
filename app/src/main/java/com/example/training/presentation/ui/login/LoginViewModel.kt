@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.LoginRepository
+import com.example.training.data.request.UserRequest
 import com.example.training.domain.model.FieldStatus
 import com.example.training.domain.model.LoginResult
 import com.example.training.domain.model.User
@@ -27,7 +28,8 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
             val isValidEmail = validateEmail(user)
             val isValidPassword = validatePassword(user)
             if (isValidEmail && isValidPassword) {
-                loginRepository.doLogin(user) { result: LoginResult ->
+                val userRequest = UserRequest(user.email, user.password)
+                loginRepository.doLogin(userRequest) { result: LoginResult ->
                     when (result) {
                         is LoginResult.Success -> {
                             loginSuccessMutableLiveData.postValue(result.value)

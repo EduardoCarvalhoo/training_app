@@ -1,8 +1,8 @@
 package com.example.training.data.rest.api
 
 import com.example.training.data.repository.RegisterRepository
+import com.example.training.data.request.UserRequest
 import com.example.training.domain.model.RegisterResult
-import com.example.training.domain.model.User
 import com.example.training.utils.Status
 import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
@@ -10,11 +10,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 
 class RegisterRepositoryImpl(private val firebaseUser: FirebaseAuth) : RegisterRepository {
     override suspend fun createUser(
-        user: User,
-        registerCallback: (register: RegisterResult) -> Unit
+        userRequest: UserRequest, registerCallback: (register: RegisterResult) -> Unit
     ) {
         try {
-            firebaseUser.createUserWithEmailAndPassword(user.email, user.password)
+            firebaseUser.createUserWithEmailAndPassword(userRequest.email, userRequest.password)
                 .addOnCompleteListener { task ->
                     when {
                         task.isSuccessful -> {
