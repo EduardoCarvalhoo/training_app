@@ -45,12 +45,12 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupObserver() {
         viewModel.successfullyRegisteredUserLiveData.observe(this) {
             clearEditText()
-            showAlertDialog(it){
+            showAlertDialog(it, getString(R.string.alert_dialog_continue_text), null) {
                 finish()
             }
         }
         viewModel.errorWhenRegisteringUserLiveData.observe(this) {
-            showAlertDialog(it)
+            showAlertDialog(it, getString(R.string.alert_dialog_continue_text), null)
         }
 
         viewModel.emailErrorMessageLiveData.observe(this) { emailErrorCode ->
@@ -64,9 +64,9 @@ class RegisterActivity : AppCompatActivity() {
 
             viewModel.passwordErrorMessageLiveData.observe(this) { passwordErrorCode ->
                 with(binding) {
-                    if(passwordErrorCode != null){
+                    if (passwordErrorCode != null) {
                         registerPasswordFieldTextInputLayout.error = getString(passwordErrorCode)
-                    } else{
+                    } else {
                         registerPasswordFieldTextInputLayout.error = null
                     }
                 }

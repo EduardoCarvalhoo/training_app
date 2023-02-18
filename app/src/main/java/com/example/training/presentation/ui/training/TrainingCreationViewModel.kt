@@ -6,7 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.ExercisesRepository
 import com.example.training.data.repository.TrainingRepository
-import com.example.training.domain.model.*
+import com.example.training.domain.model.Exercise
+import com.example.training.domain.model.ExercisesResult
+import com.example.training.domain.model.Training
+import com.example.training.domain.model.TrainingResult
 import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
@@ -35,12 +38,12 @@ class TrainingCreationViewModel(
             trainingRepository.saveTraining(
                 training,
                 getSelectedExercises
-            ) { result: TrainingCreationResult ->
+            ) { result: TrainingResult ->
                 when (result) {
-                    is TrainingCreationResult.Success -> {
+                    is TrainingResult.Success -> {
                         workoutCreatedSuccessMutableLiveData.postValue(result.value)
                     }
-                    is TrainingCreationResult.Error -> {
+                    is TrainingResult.Error -> {
                         when (result.value) {
                             Status.FAILURE -> {
                                 errorWhenRegisteringMutableLiveData.postValue(R.string.training_creation_error_saving_data)

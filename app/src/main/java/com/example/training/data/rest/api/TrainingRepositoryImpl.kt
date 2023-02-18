@@ -1,58 +1,108 @@
 package com.example.training.data.rest.api
 
 import com.example.training.data.repository.TrainingRepository
+import com.example.training.data.request.ExerciseListRequest
+import com.example.training.data.request.ExerciseRequest
+import com.example.training.data.request.TrainingRequest
 import com.example.training.data.response.TrainingResponse
-import com.example.training.domain.model.*
+import com.example.training.domain.model.Exercise
+import com.example.training.domain.model.Training
+import com.example.training.domain.model.TrainingListResult
+import com.example.training.domain.model.TrainingResult
 import com.example.training.utils.*
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TrainingRepositoryImpl(
-    private val database: FirebaseFirestore
+    database: FirebaseFirestore, firebaseUser: FirebaseAuth
 ) : TrainingRepository {
+
+    private val uid = firebaseUser.uid
+    private val trainingReference = database.collection(USERS).document(uid.toString())
 
     override suspend fun saveTraining(
         training: Training,
-        getSelectedExercises: List<Exercise>,
-        resultCallback: (result: TrainingCreationResult) -> Unit
+        selectedExercises: List<Exercise>,
+        resultCallback: (result: TrainingResult) -> Unit
     ) {
         try {
-            SelectedExercisesCache.selectedExercisesCache = getSelectedExercises
-            database.collection(USERS).document(TRAINING).collection(TRAINING_LIST)
-                .document(training.description.toString()).set(training)
-            database.collection(USERS).document(EXERCISES).collection(SELECTED_EXERCISES)
-                .document(training.data.toString()).set(SelectedExercisesCache)
-                .addOnCompleteListener { task ->
-                    when {
-                        task.isSuccessful -> {
-                            resultCallback(TrainingCreationResult.Success(Status.SUCCESS))
-                        }
+            trainingReference.collection(TRAINING_LIST).document(training.data.toString())
+                .set(training)
+            trainingReference.collection(SELECTED_EXERCISES).document(training.data.toString()).set(
+                ExerciseListRequest(selectedExercises.map {
+                    ExerciseRequest(it.name, it.image, it.observation)
+                })
+            ).addOnCompleteListener { task ->
+                when {
+                    task.isSuccessful -> {
+                        resultCallback(TrainingResult.Success(Status.SUCCESS))
                     }
                 }
+            }
         } catch (e: Exception) {
-            resultCallback(TrainingCreationResult.Error(Status.FAILURE))
+            resultCallback(TrainingResult.Error(Status.FAILURE))
         }
     }
 
     override suspend fun getTrainingData(
         resultCallback: (result: TrainingListResult) -> Unit
     ) {
-        database.collection(USERS).document(TRAINING).collection(TRAINING_LIST)
-            .get().addOnSuccessListener { documentsList ->
-                if (documentsList != null && !documentsList.isEmpty) {
-                    val trainingList = documentsList.map { document ->
-                        val trainingData = document.toObject(TrainingResponse::class.java)
-                        Training(
-                            trainingData.name,
-                            trainingData.description,
-                            trainingData.data
-                        )
+        trainingReference.collection(TRAINING_LIST).get().addOnSuccessListener { documentsList ->
+            if (documentsList != null && !documentsList.isEmpty) {
+                val trainingList = documentsList.map { document ->
+                    val trainingData = document.toObject(TrainingResponse::class.java)
+                    Training(
+                        trainingData.name, trainingData.description, trainingData.data
+                    )
+                }
+                resultCallback(TrainingListResult.Success(trainingList))
+            } else {
+                resultCallback(TrainingListResult.Error(Status.EMPTY_LIST_ERROR))
+            }
+        }.addOnFailureListener {
+            resultCallback(TrainingListResult.Error(Status.SERVER_ERROR))
+        }
+    }
+
+    override suspend fun saveUpdateTraining(
+        trainingRequest: TrainingRequest,
+        newTrainingDescription: String,
+        getSelectedExercises: List<Exercise>,
+        updateTrainingCallback: (result: TrainingResult) -> Unit
+
+    ) {
+        try {
+            trainingReference.collection(TRAINING_LIST).document(trainingRequest.data.toString())
+                .update(DESCRIPTION, newTrainingDescription)
+            trainingReference.collection(SELECTED_EXERCISES)
+                .document(trainingRequest.data.toString())
+                .update(SELECTED_EXERCISE_LIST, getSelectedExercises)
+                .addOnCompleteListener { task ->
+                    when {
+                        task.isSuccessful -> {
+                            updateTrainingCallback(TrainingResult.Success(Status.SUCCESS))
+                        }
                     }
-                    resultCallback(TrainingListResult.Success(trainingList))
-                } else {
-                    resultCallback(TrainingListResult.Error(Status.EMPTY_LIST_ERROR))
+                }
+        } catch (e: Exception) {
+            updateTrainingCallback(TrainingResult.Error(Status.FAILURE))
+        }
+    }
+
+    override suspend fun deleteTraining(
+        trainingRequest: TrainingRequest, deleteTrainingCallback: (result: TrainingResult) -> Unit
+    ) {
+        trainingReference.collection(TRAINING_LIST).document(trainingRequest.data.toString())
+            .delete()
+        trainingReference.collection(SELECTED_EXERCISES).document(trainingRequest.data.toString())
+            .delete().addOnCompleteListener { task ->
+                when {
+                    task.isSuccessful -> {
+                        deleteTrainingCallback(TrainingResult.Success(Status.SUCCESS))
+                    }
                 }
             }.addOnFailureListener {
-                resultCallback(TrainingListResult.Error(Status.SERVER_ERROR))
+                deleteTrainingCallback(TrainingResult.Error(Status.FAILURE))
             }
     }
 }

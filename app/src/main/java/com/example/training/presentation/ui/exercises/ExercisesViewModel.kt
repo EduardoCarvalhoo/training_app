@@ -51,10 +51,10 @@ class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) :
                     is ExercisesResult.Error -> {
                         when (result.value) {
                             Status.EMPTY_LIST_ERROR -> {
-                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_toast)
+                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data)
                             }
                             Status.SERVER_ERROR -> {
-                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_from_server_toast)
+                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_from_server)
                             }
                             else -> return@getExerciseList
                         }

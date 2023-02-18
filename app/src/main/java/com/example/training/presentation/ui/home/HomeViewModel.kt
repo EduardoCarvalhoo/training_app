@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.TrainingRepository
-import com.example.training.domain.model.TrainingListResult
 import com.example.training.domain.model.Training
+import com.example.training.domain.model.TrainingListResult
 import com.example.training.utils.Status
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
@@ -34,5 +34,9 @@ class HomeViewModel(private val trainingRepository: TrainingRepository) : ViewMo
                 }
             }
         }
+    }
+
+    fun resetLiveData(){
+        dataReadSuccessfullyMutableLiveData.postValue(emptyList())
     }
 }

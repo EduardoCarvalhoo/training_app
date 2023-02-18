@@ -45,12 +45,17 @@ class TrainingCreationActivity : AppCompatActivity() {
 
     private fun setupObserver() {
         viewModel.workoutCreatedSuccessLiveData.observe(this) {
-            showAlertDialog(R.string.training_creation_success_saving_data) {
+            showAlertDialog(
+                R.string.training_creation_success_saving_data,
+                getString(R.string.alert_dialog_continue_text),
+                null
+            ) {
                 finish()
+                ExerciseListCache.exerciseList = emptyList()
             }
         }
         viewModel.errorWhenRegisteringLiveData.observe(this) { errorMessageCode ->
-            showAlertDialog(errorMessageCode)
+            showAlertDialog(errorMessageCode, getString(R.string.alert_dialog_continue_text), null)
         }
         viewModel.listSuccessfullyRetrievedLiveData.observe(this) { exerciseList ->
             setupRecyclerView(exerciseList)
@@ -84,7 +89,11 @@ class TrainingCreationActivity : AppCompatActivity() {
         ) {
             true
         } else {
-            showAlertDialog(R.string.training_empty_field_text)
+            showAlertDialog(
+                R.string.training_empty_field_text,
+                getString(R.string.alert_dialog_continue_text),
+                null
+            )
             false
         }
     }

@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         viewModel.loginErrorLiveData.observe(this) {
-            showAlertDialog(it)
+            showAlertDialog(it, getString(R.string.alert_dialog_continue_text), null)
         }
 
         viewModel.emailErrorMessageLiveData.observe(this) { emailErrorCode ->

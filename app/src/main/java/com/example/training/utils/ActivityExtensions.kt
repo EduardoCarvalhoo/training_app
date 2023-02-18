@@ -2,13 +2,20 @@ package com.example.training.utils
 
 import android.app.Activity
 import android.app.AlertDialog
-import com.example.treinoacademia.R
 
-fun Activity.showAlertDialog(message: Int, positiveButtonAction: (() -> Unit)? = null) {
+fun Activity.showAlertDialog(
+    message: Int,
+    positiveMessage: String?,
+    negativeMessage: String?,
+    positiveButtonAction: (() -> Unit)? = null,
+) {
     AlertDialog.Builder(this)
         .setMessage(message)
-        .setPositiveButton(getString(R.string.alert_dialog_positive_button_message_text)) { _, _ ->
+        .setPositiveButton(positiveMessage) { _, _ ->
             positiveButtonAction?.invoke()
+        }
+        .setNegativeButton(negativeMessage) { _, _ ->
+
         }
         .show()
 }

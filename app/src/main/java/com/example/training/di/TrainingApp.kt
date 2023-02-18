@@ -16,7 +16,9 @@ class TrainingApp : Application() {
                 databaseModule,
                 homeModule,
                 exercisesModule,
-                trainingCreation
+                trainingCreation,
+                trainingDetails,
+                updateTraining
             )
         }
     }

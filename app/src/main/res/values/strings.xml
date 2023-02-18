@@ -15,7 +15,7 @@
     <string name="login_unauthenticated_user">Usuário não autorizado!</string>
     <string name="login_no_internet_connection_error">Sem conexão com a internet. Tente novamente!</string>
     <string name="login_server_error">Erro de servidor, tente mais tarde!</string>
-"
+    "
 
     <!-- Register -->
     <string name="register_user_text_toolbar">Cadastrar Usuário</string>
@@ -48,8 +48,8 @@
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>
     <string name="exercises_save_text">Salvar Exercícios</string>
-    <string name="exercises_error_reading_data_toast">Erro ao ler documento, ele não existe ou está vazio</string>
-    <string name="exercises_error_reading_data_from_server_toast">Erro ao ler dados do servidor</string>
+    <string name="exercises_error_reading_data">Erro ao ler documento, ele não existe ou está vazio</string>
+    <string name="exercises_error_reading_data_from_server">Erro ao ler dados do servidor</string>
     <string name="exercises_successfully_added_text">Exercícios adicionados com sucesso!</string>
 
     <!-- remove_exercise_item -->
@@ -57,7 +57,24 @@
     <string name="remove_exercise_item_image_description">Imagem do exercício</string>
     <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
 
+    <!-- training_details -->
+    <string name="training_details_informative_text_view">Exercícios do treino</string>
+    <string name="training_details_delete_button">Deletar Treino</string>
+    <string name="training_details_success_deleting_training">Sucesso ao deletar treino</string>
+    <string name="training_details_error_deleting_training">Erro ao deletar treino</string>
+
+
+    <!-- update_training -->
+    <string name="update_training_button">Atualizar Treino</string>
+    <string name="update_training_title_toolbar">Atualizar Treino</string>
+    <string name="update_training_button_description">Botão atualizar treino</string>
+    <string name="update_training_successfully_updated">Treino atualizado com sucesso</string>
+    <string name="update_training_error_when_updating_data">Erro ao atualizar treino</string>
+
     <!-- activity_extensions -->
-    <string name="alert_dialog_positive_button_message_text">OK</string>
+    <string name="alert_dialog_message_text">Deseja excluir esse treino?</string>
+    <string name="alert_dialog_positive_message_text">Sim</string>
+    <string name="alert_dialog_negative_message_text">Não</string>
+    <string name="alert_dialog_continue_text">OK</string>
 
 </resources>
