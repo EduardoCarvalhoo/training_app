@@ -39,7 +39,7 @@ class TrainingDetailsViewModel(
                     }
                     is ExercisesResult.Error -> {
                         if (result.value == Status.EMPTY_LIST_ERROR) {
-                            errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_toast)
+                            errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data)
                         } else {
                             errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_from_server_toast)
                         }

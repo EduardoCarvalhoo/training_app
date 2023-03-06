@@ -31,7 +31,7 @@
     <string name="home_create_text">Criar treino</string>
     <string name="home_list_text">Meus treinos</string>
     <string name="home_button_add_description">Botão adicionar</string>
-    <string name="home_error_reading_data_toast">Erro ao ler documento, ele não existe ou está vazio</string>
+    <string name="home_error_reading_data_text">Nenhum treino cadastrado!</string>
     <string name="home_error_reading_data_from_server_toast">Erro ao ler dados do servidor</string>
 
     <!-- TrainingCreation -->

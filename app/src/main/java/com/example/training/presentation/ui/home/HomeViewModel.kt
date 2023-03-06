@@ -26,7 +26,7 @@ class HomeViewModel(private val trainingRepository: TrainingRepository) : ViewMo
                     }
                     is TrainingListResult.Error -> {
                         if (result.value == Status.EMPTY_LIST_ERROR) {
-                            errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_toast)
+                            errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_text)
                         } else {
                             errorReadingDataMutableLiveData.postValue(R.string.home_error_reading_data_from_server_toast)
                         }
