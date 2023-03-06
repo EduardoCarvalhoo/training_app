@@ -61,5 +61,5 @@ Neste app foi utilizado:
   <img src= "https://user-images.githubusercontent.com/102394401/220636133-cdc025b4-c2be-40d7-b6b2-f7bfa7ef6f85.png" width="300"/>
   <img src= "https://user-images.githubusercontent.com/102394401/220636136-75028707-533f-4a30-b663-3f223134276e.png" width="300"/>
   <img src= "https://user-images.githubusercontent.com/102394401/220636145-9773ff20-71cd-4700-a939-45c8d0fdc2cb.png" width="300"/>
-  <img src= "https://user-images.githubusercontent.com/102394401/220636142-79101f10-162c-4a42-a63e-7b2d5e6d0d56.png" width="300"/>
+  <img src= "https://user-images.githubusercontent.com/102394401/223276198-5929c9b0-1ece-4f95-9f3b-cbef07b46ee7.png" width="300"/>
  </div>
