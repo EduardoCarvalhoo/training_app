@@ -14,6 +14,9 @@
         android:theme="@style/Theme.Training"
         tools:targetApi="31">
         <activity
+            android:name="com.example.training.presentation.ui.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.training.presentation.ui.update.UpdateTrainingActivity"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
             android:exported="false"
             android:parentActivityName="com.example.training.presentation.ui.login.LoginActivity" />
         <activity
-            android:name="com.example.training.presentation.ui.login.LoginActivity"
+            android:name="com.example.training.presentation.ui.splashScreen.InitialPresentationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
