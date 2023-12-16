@@ -18,8 +18,9 @@
     "
 
     <!-- Register -->
-    <string name="register_user_text_toolbar">Cadastrar Usuário</string>
+    <string name="register_account_toolbar">Cadastrar conta</string>
     <string name="register_successfully_registered_user">Usuário cadastrado com sucesso</string>
+    <string name="register_title_text">Seja bem vindo(a), faça seu cadastro para acessar o app!</string>
     <string name="register_failed_to_register_user">Falha ao registrar usuário, tente novamente!</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>

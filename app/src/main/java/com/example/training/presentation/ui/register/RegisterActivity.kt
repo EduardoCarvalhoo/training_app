@@ -25,7 +25,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.registerToolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
-        title = getString(R.string.register_user_text_toolbar)
+        title = getString(R.string.register_account_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
     }

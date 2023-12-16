@@ -16,32 +16,33 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/white" />
 
-    <ImageView
-        android:id="@+id/register_user_text_view"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="38dp"
-        android:foreground="@drawable/drawable_man_training"
-        android:gravity="center"
+    <TextView
+        android:id="@+id/register_title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/register_title_text"
+        android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/register_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/register_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/register_toolbar"
-        android:importantForAccessibility="no" />
+        app:layout_constraintTop_toBottomOf="@+id/register_toolbar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_email_field_text_input_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="44dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="76dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/black"
         app:hintTextColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_user_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/register_title_text_view"
         app:startIconDrawable="@drawable/ic_email"
         app:startIconTint="@color/black">
 
@@ -89,10 +90,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
+        android:padding="12dp"
         android:text="@string/register_button_text"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:padding="12dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/register_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/register_start_guideline"
