@@ -2,7 +2,10 @@ package com.example.training.presentation.ui.training
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.menu.MenuView.ItemView
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.exercises.ExercisesActivity

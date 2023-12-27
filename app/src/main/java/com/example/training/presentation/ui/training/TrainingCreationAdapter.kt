@@ -33,10 +33,14 @@ class TrainingCreationAdapter(
                 Glide.with(this@SelectedExercisesViewHolder.itemView).load(item.image)
                     .into(removeExerciseItemImageView)
                 removeExerciseItemNameTextView.text = item.observation
+                removeExerciseItemSerialNumbersTextView.text = item.series
+                removeExerciseItemRepetitionsNumbersTextView.text = item.repetitions
 
                 removeExerciseItemDeleteButton.setOnClickListener {
                     item.isSelected = false
                     onItemClickDelete.invoke()
+                    item.series = "0"
+                    item.repetitions = "0"
                 }
             }
         }

@@ -21,10 +21,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
             android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/item_training_details_name_text_view"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
@@ -33,6 +31,7 @@
             android:id="@+id/item_training_details_name_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:textColor="@color/black"
@@ -41,6 +40,53 @@
             app:layout_constraintStart_toEndOf="@+id/item_training_details_image_view"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Supino Reto" />
+
+        <TextView
+            android:id="@+id/item_training_details_series_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/remove_exercise_series_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_name_text_view" />
+
+        <TextView
+            android:id="@+id/item_training_details_serial_numbers_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_series_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_name_text_view"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/item_training_details_repetitions_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/remove_exercise_repetitions_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_series_text_view" />
+
+        <TextView
+            android:id="@+id/item_training_details_repetitions_numbers_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_repetitions_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_serial_numbers_text_view"
+            tools:text="0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

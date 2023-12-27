@@ -1,5 +1,7 @@
 package com.example.training.presentation.ui.exercises
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +19,7 @@ class ExercisesAdapter(
     }
 
     override fun onBindViewHolder(holder: ExercisesViewHolder, position: Int) {
-        holder.bindView(exercises[position])
+        holder.bindView(exercises[position], position)
     }
 
     override fun getItemCount() = exercises.size
@@ -27,14 +29,36 @@ class ExercisesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val checkBox = binding.selectExercisesItemCheckBox
 
-        fun bindView(item: Exercise) {
-            Glide.with(this@ExercisesViewHolder.itemView).load(item.image)
-                .into(binding.selectExercisesItemImageView)
-            binding.selectExercisesItemNameTextView.text = item.observation
-            checkBox.isChecked = item.isSelected
-            itemView.setOnClickListener {
-                item.isSelected = !item.isSelected
+        fun bindView(item: Exercise, position: Int) {
+            with(binding){
+                Glide.with(this@ExercisesViewHolder.itemView).load(item.image)
+                    .into(selectExercisesItemImageView)
+
+                selectExercisesItemNameTextView.text = item.observation
                 checkBox.isChecked = item.isSelected
+                itemView.setOnClickListener {
+                    item.isSelected = !item.isSelected
+                    checkBox.isChecked = item.isSelected
+                }
+
+                itemSelectSeriesFieldEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        exercises[position].series = itemSelectSeriesFieldEditText.text.toString()
+                    }
+
+                    override fun afterTextChanged(p0: Editable?) {}
+                })
+
+                itemSelectRepetitionsFieldEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        exercises[position].repetitions = itemSelectRepetitionsFieldEditText.text.toString()
+                    }
+                    override fun afterTextChanged(p0: Editable?) {}
+                })
             }
         }
     }

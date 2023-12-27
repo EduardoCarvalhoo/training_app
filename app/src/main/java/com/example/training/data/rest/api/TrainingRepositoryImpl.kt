@@ -9,7 +9,12 @@ import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.domain.model.TrainingListResult
 import com.example.training.domain.model.TrainingResult
-import com.example.training.utils.*
+import com.example.training.utils.DESCRIPTION
+import com.example.training.utils.SELECTED_EXERCISES
+import com.example.training.utils.SELECTED_EXERCISE_LIST
+import com.example.training.utils.Status
+import com.example.training.utils.TRAINING_LIST
+import com.example.training.utils.USERS
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -30,7 +35,14 @@ class TrainingRepositoryImpl(
                 .set(training)
             trainingReference.collection(SELECTED_EXERCISES).document(training.data.toString()).set(
                 ExerciseListRequest(selectedExercises.map {
-                    ExerciseRequest(it.name, it.image, it.observation)
+                    ExerciseRequest(
+                        it.name,
+                        it.image,
+                        it.observation,
+                        it.isSelected,
+                        it.series,
+                        it.repetitions
+                    )
                 })
             ).addOnCompleteListener { task ->
                 when {

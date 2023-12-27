@@ -31,6 +31,8 @@ class TrainingDetailsAdapter(
         fun bindView(item: Exercise) {
             Glide.with(this@TrainingDetailsViewHolder.itemView).load(item.image)
                 .into(binding.itemTrainingDetailsImageView)
+            binding.itemTrainingDetailsSerialNumbersTextView.text = item.series
+            binding.itemTrainingDetailsRepetitionsNumbersTextView.text = item.repetitions
 
             binding.itemTrainingDetailsNameTextView.text = item.observation
         }

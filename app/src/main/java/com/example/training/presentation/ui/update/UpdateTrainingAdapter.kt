@@ -33,6 +33,8 @@ class UpdateTrainingAdapter(
                 Glide.with(this@UpdateTrainingViewHolder.itemView).load(item.image)
                     .into(removeExerciseItemImageView)
                 removeExerciseItemNameTextView.text = item.observation
+                removeExerciseItemSerialNumbersTextView.text = item.series
+                removeExerciseItemRepetitionsNumbersTextView.text = item.repetitions
 
                 removeExerciseItemDeleteButton.setOnClickListener {
                     item.isSelected = false

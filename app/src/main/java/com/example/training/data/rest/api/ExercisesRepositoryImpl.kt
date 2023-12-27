@@ -67,7 +67,14 @@ class ExercisesRepositoryImpl(
                     if (selectedExercises != null) {
                         exercisesByTrainingCallback(ExercisesResult.Success(
                             selectedExercises.selectedExerciseList.map {
-                                Exercise(it.name, it.image, it.observation)
+                                Exercise(
+                                    it.name,
+                                    it.image,
+                                    it.observation,
+                                    it.isSelected,
+                                    it.series,
+                                    it.repetitions
+                                )
                             }
                         ))
                     }
