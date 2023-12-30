@@ -88,6 +88,30 @@
             app:layout_constraintTop_toBottomOf="@+id/item_training_details_serial_numbers_text_view"
             tools:text="0" />
 
+        <TextView
+            android:id="@+id/item_training_details_weight_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/remove_exercise_weights_or_bars_text"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_repetitions_text_view" />
+
+        <TextView
+            android:id="@+id/item_training_details_weight_numbers_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/item_training_details_weight_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/item_training_details_repetitions_numbers_text_view"
+            tools:text="0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

@@ -35,12 +35,15 @@ class TrainingCreationAdapter(
                 removeExerciseItemNameTextView.text = item.observation
                 removeExerciseItemSerialNumbersTextView.text = item.series
                 removeExerciseItemRepetitionsNumbersTextView.text = item.repetitions
+                removeExerciseItemWeightNumbersTextView.text = item.weight
+
 
                 removeExerciseItemDeleteButton.setOnClickListener {
                     item.isSelected = false
                     onItemClickDelete.invoke()
                     item.series = "0"
                     item.repetitions = "0"
+                    item.weight = "0"
                 }
             }
         }

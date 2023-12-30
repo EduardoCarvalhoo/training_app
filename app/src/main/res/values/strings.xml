@@ -59,18 +59,19 @@
     <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
     <string name="remove_exercise_series_text">Séries</string>
     <string name="remove_exercise_repetitions_text">Repetições</string>
+    <string name="remove_exercise_weights_or_bars_text">Kg/Barras</string>
 
 
 
     <!-- training_details -->
     <string name="training_details_informative_text_view">Exercícios do treino</string>
-    <string name="training_details_delete_button">Deletar Treino</string>
+    <string name="training_details_delete_button">Deletar</string>
     <string name="training_details_success_deleting_training">Sucesso ao deletar treino</string>
     <string name="training_details_error_deleting_training">Erro ao deletar treino</string>
 
 
     <!-- update_training -->
-    <string name="update_training_button">Atualizar Treino</string>
+    <string name="update_training_button">Atualizar</string>
     <string name="update_training_title_toolbar">Atualizar Treino</string>
     <string name="update_training_button_description">Botão atualizar treino</string>
     <string name="update_training_successfully_updated">Treino atualizado com sucesso</string>

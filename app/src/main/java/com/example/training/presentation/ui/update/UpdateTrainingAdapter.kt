@@ -35,6 +35,7 @@ class UpdateTrainingAdapter(
                 removeExerciseItemNameTextView.text = item.observation
                 removeExerciseItemSerialNumbersTextView.text = item.series
                 removeExerciseItemRepetitionsNumbersTextView.text = item.repetitions
+                removeExerciseItemWeightNumbersTextView.text = item.weight
 
                 removeExerciseItemDeleteButton.setOnClickListener {
                     item.isSelected = false

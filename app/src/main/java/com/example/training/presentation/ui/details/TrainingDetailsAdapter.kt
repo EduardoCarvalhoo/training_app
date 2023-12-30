@@ -29,12 +29,14 @@ class TrainingDetailsAdapter(
 
 
         fun bindView(item: Exercise) {
-            Glide.with(this@TrainingDetailsViewHolder.itemView).load(item.image)
-                .into(binding.itemTrainingDetailsImageView)
-            binding.itemTrainingDetailsSerialNumbersTextView.text = item.series
-            binding.itemTrainingDetailsRepetitionsNumbersTextView.text = item.repetitions
-
-            binding.itemTrainingDetailsNameTextView.text = item.observation
+            with(binding){
+                Glide.with(this@TrainingDetailsViewHolder.itemView).load(item.image)
+                    .into(itemTrainingDetailsImageView)
+                itemTrainingDetailsSerialNumbersTextView.text = item.series
+                itemTrainingDetailsRepetitionsNumbersTextView.text = item.repetitions
+                itemTrainingDetailsWeightNumbersTextView.text = item.weight
+                itemTrainingDetailsNameTextView.text = item.observation
+            }
         }
     }
 }

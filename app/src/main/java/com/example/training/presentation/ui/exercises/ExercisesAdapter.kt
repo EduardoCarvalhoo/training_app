@@ -30,7 +30,7 @@ class ExercisesAdapter(
         private val checkBox = binding.selectExercisesItemCheckBox
 
         fun bindView(item: Exercise, position: Int) {
-            with(binding){
+            with(binding) {
                 Glide.with(this@ExercisesViewHolder.itemView).load(item.image)
                     .into(selectExercisesItemImageView)
 
@@ -55,8 +55,21 @@ class ExercisesAdapter(
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
                     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        exercises[position].repetitions = itemSelectRepetitionsFieldEditText.text.toString()
+                        exercises[position].repetitions =
+                            itemSelectRepetitionsFieldEditText.text.toString()
                     }
+
+                    override fun afterTextChanged(p0: Editable?) {}
+                })
+
+                itemSelectWeightsOrBarsFieldEditText.addTextChangedListener(object : TextWatcher {
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                        exercises[position].weight =
+                            itemSelectWeightsOrBarsFieldEditText.text.toString()
+                    }
+
                     override fun afterTextChanged(p0: Editable?) {}
                 })
             }

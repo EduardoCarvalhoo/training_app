@@ -73,7 +73,8 @@ class ExercisesRepositoryImpl(
                                     it.observation,
                                     it.isSelected,
                                     it.series,
-                                    it.repetitions
+                                    it.repetitions,
+                                    it.weight
                                 )
                             }
                         ))

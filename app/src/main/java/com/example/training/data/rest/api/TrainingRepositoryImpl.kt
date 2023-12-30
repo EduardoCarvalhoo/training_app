@@ -41,7 +41,8 @@ class TrainingRepositoryImpl(
                         it.observation,
                         it.isSelected,
                         it.series,
-                        it.repetitions
+                        it.repetitions,
+                        it.weight
                     )
                 })
             ).addOnCompleteListener { task ->
