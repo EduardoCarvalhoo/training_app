@@ -41,6 +41,8 @@ class TrainingDetailsActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(binding.trainingDetailsToolbar)
         title = training?.description
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun getExerciseData() {
@@ -55,7 +57,7 @@ class TrainingDetailsActivity : AppCompatActivity() {
             showAlertDialog(errorMessageCode, getString(R.string.alert_dialog_continue_text), null)
         }
         viewModel.successDeletingTrainingLiveData.observe(this) { messageCode ->
-            showAlertDialog(messageCode, getString(R.string.alert_dialog_continue_text), null){
+            showAlertDialog(messageCode, getString(R.string.alert_dialog_continue_text), null) {
                 finish()
             }
         }
@@ -85,7 +87,6 @@ class TrainingDetailsActivity : AppCompatActivity() {
             val intent =
                 UpdateTrainingActivity.getStartIntent(this@TrainingDetailsActivity, training)
             startActivity(intent)
-            finish()
         }
     }
 }
