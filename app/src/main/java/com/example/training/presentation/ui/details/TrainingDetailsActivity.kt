@@ -67,7 +67,13 @@ class TrainingDetailsActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView(exercises: List<Exercise>) {
-        binding.trainingDetailsRecyclerView.adapter = TrainingDetailsAdapter(exercises)
+        binding.trainingDetailsRecyclerView.adapter =
+            TrainingDetailsAdapter(exercises) { exercise ->
+                val intent = ExecutionExerciseActivity.getStartIntent(
+                    this@TrainingDetailsActivity, exercise
+                )
+                startActivity(intent)
+            }
     }
 
     private fun deleteTrainingButtonClickListener() {

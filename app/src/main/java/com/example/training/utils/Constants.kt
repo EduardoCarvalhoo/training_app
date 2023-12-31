@@ -9,4 +9,5 @@ const val SELECTED_TRAINING = "SelectTraining"
 const val SELECTED_EXERCISES = "SelectedExercises"
 const val DESCRIPTION = "description"
 const val SELECTED_EXERCISE_LIST = "selectedExerciseList"
+const val EXERCISE = "exercise"
 

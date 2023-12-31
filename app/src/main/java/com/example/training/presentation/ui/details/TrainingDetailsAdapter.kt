@@ -8,13 +8,14 @@ import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.databinding.ItemTrainingDetailsBinding
 
 class TrainingDetailsAdapter(
-    private val exercises: List<Exercise>
+    private val exercises: List<Exercise>,
+    private val onItemClickListener: (item: Exercise) -> Unit
 ) : RecyclerView.Adapter<TrainingDetailsAdapter.TrainingDetailsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrainingDetailsViewHolder {
         val view =
             ItemTrainingDetailsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TrainingDetailsViewHolder(view)
+        return TrainingDetailsViewHolder(view, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: TrainingDetailsViewHolder, position: Int) {
@@ -24,7 +25,8 @@ class TrainingDetailsAdapter(
     override fun getItemCount() = exercises.size
 
     inner class TrainingDetailsViewHolder(
-        private val binding: ItemTrainingDetailsBinding
+        private val binding: ItemTrainingDetailsBinding,
+        private val onItemClickListener: (item: Exercise) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -36,6 +38,10 @@ class TrainingDetailsAdapter(
                 itemTrainingDetailsRepetitionsNumbersTextView.text = item.repetitions
                 itemTrainingDetailsWeightNumbersTextView.text = item.weight
                 itemTrainingDetailsNameTextView.text = item.observation
+
+                itemView.setOnClickListener {
+                    onItemClickListener.invoke(item)
+                }
             }
         }
     }
