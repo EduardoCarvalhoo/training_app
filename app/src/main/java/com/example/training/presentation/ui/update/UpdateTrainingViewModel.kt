@@ -11,6 +11,7 @@ import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.ExercisesResult
 import com.example.training.domain.model.Training
 import com.example.training.domain.model.TrainingResult
+import com.example.training.utils.ExerciseListCache
 import com.example.treinoacademia.R
 import kotlinx.coroutines.launch
 
@@ -67,6 +68,7 @@ class UpdateTrainingViewModel(
                     when (result) {
                         is TrainingResult.Success -> {
                             successfullySavedDataMutableLiveData.postValue(R.string.update_training_successfully_updated)
+                            ExerciseListCache.exerciseList = emptyList()
                         }
                         is TrainingResult.Error -> {
                             errorSavedDataMutableLiveData.postValue(R.string.update_training_error_when_updating_data)

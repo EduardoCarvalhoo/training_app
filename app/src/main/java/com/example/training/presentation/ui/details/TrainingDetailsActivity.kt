@@ -93,6 +93,7 @@ class TrainingDetailsActivity : AppCompatActivity() {
             val intent =
                 UpdateTrainingActivity.getStartIntent(this@TrainingDetailsActivity, training)
             startActivity(intent)
+            finish()
         }
     }
 }
