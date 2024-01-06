@@ -53,7 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -95,6 +95,7 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
         android:contentDescription="@string/training_creation_button_description"
+        android:padding="16dp"
         android:text="@string/training_creation_button"
         android:textColor="@color/white"
         android:textStyle="bold"

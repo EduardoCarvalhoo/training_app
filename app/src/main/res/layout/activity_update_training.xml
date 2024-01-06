@@ -94,6 +94,7 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
         android:contentDescription="@string/update_training_button_description"
+        android:padding="16dp"
         android:text="@string/update_training_button"
         android:textColor="@color/white"
         android:textStyle="bold"

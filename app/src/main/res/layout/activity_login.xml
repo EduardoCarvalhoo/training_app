@@ -111,7 +111,7 @@
         android:layout_marginHorizontal="8dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
-        android:padding="12dp"
+        android:padding="16dp"
         android:text="@string/login_enter_the_app_button"
         android:textColor="@color/white"
         android:textStyle="bold"

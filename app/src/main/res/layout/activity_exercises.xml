@@ -39,6 +39,7 @@
         android:contentDescription="@string/training_creation_button_description"
         android:text="@string/exercises_save_text"
         android:textColor="@color/white"
+        android:padding="16dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/exercises_creation_end_guideline"
