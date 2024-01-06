@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.example.training.presentation.ui.training.TrainingCreationActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -40,7 +41,9 @@
         android:layout_marginTop="8dp"
         android:autofillHints="Name"
         android:hint="@string/training_creation_type_text"
+        android:textColorHint="@color/slater_grey"
         android:textSize="12sp"
+        app:boxStrokeColor="@color/purple_500"
         app:layout_constraintEnd_toEndOf="@id/training_creation_end_guideline"
         app:layout_constraintStart_toStartOf="@id/training_creation_start_guideline"
         app:layout_constraintTop_toBottomOf="@id/training_creation_description_text_view">
@@ -48,8 +51,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/training_creation_field_edit_text"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="text"
-            android:layout_height="wrap_content" />
+            android:textColor="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -57,13 +61,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:padding="16dp"
-        android:drawableEnd="@drawable/ic_add_circle"
-        android:text="@string/training_creation_add_exercises_text"
         android:backgroundTint="@color/white"
-        android:textColor="@color/black"
+        android:drawableEnd="@drawable/ic_add_circle"
         android:gravity="start"
+        android:padding="16dp"
+        android:text="@string/training_creation_add_exercises_text"
         android:textAllCaps="false"
+        android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/training_creation_end_guideline"
@@ -81,8 +85,8 @@
         app:layout_constraintEnd_toStartOf="@+id/training_creation_end_guideline"
         app:layout_constraintStart_toStartOf="@+id/training_creation_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/training_creation_add_exercises_button"
-        tools:listitem="@layout/item_remove_exercise"
-        tools:itemCount="4"/>
+        tools:itemCount="4"
+        tools:listitem="@layout/item_remove_exercise" />
 
     <Button
         android:id="@+id/training_creation_button"
