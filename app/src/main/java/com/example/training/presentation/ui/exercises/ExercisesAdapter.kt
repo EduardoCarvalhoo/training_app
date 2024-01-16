@@ -20,6 +20,7 @@ class ExercisesAdapter(
 
     override fun onBindViewHolder(holder: ExercisesViewHolder, position: Int) {
         holder.bindView(exercises[position], position)
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount() = exercises.size
@@ -40,6 +41,11 @@ class ExercisesAdapter(
                     item.isSelected = !item.isSelected
                     checkBox.isChecked = item.isSelected
                 }
+
+                itemSelectSeriesFieldEditText.setText(exercises[position].series)
+                itemSelectRepetitionsFieldEditText.setText(exercises[position].repetitions)
+                itemSelectWeightsOrBarsFieldEditText.setText(exercises[position].weight)
+
 
                 itemSelectSeriesFieldEditText.addTextChangedListener(object : TextWatcher {
                     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
