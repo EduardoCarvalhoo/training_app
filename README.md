@@ -37,6 +37,7 @@ Neste app foi utilizado:
 ● Coroutines <br/>
 
 
-https://github.com/EduardoCarvalhoo/training_app/assets/102394401/15e59aea-6102-45bb-b40c-ecfe235090f7
+
+https://github.com/EduardoCarvalhoo/training_app/assets/102394401/cc10c9db-9d6e-4dc1-955b-eb6c15cd1a16
 
 
