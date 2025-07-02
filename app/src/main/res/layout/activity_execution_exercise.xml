@@ -10,7 +10,7 @@
         android:id="@+id/execution_exercise_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#215FDA"
+        android:background="?attr/colorPrimary"
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
