@@ -4,120 +4,227 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:layout_marginTop="6dp"
+    android:layout_margin="8dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="2dp"
+    app:cardCornerRadius="16dp"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="4dp">
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/select_exercises_item_check_box"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:buttonTint="@color/purple_700"
-            android:clickable="false"
+            android:buttonTint="@color/green_500"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/select_exercises_item_image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="16dp"
-            android:importantForAccessibility="no"
-            app:layout_constraintStart_toEndOf="@+id/select_exercises_item_check_box"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/select_exercises_item_name_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
             android:textColor="@color/black"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/select_exercises_item_image_view"
+            app:layout_constraintStart_toEndOf="@id/select_exercises_item_check_box"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Supino Reto" />
+            tools:text="Exercise name" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_select_series_layout_edit_text"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:autofillHints="Name"
-            android:hint="@string/remove_exercise_series_text"
-            android:textColorHint="@color/slater_grey"
-            android:textSize="12sp"
-            app:boxStrokeColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/item_select_repetitions_layout_edit_text"
+        <ImageView
+            android:id="@+id/select_exercises_item_image_view"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            android:importantForAccessibility="no"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/select_exercises_item_image_view">
+            app:layout_constraintTop_toBottomOf="@+id/select_exercises_item_name_text_view"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_select_series_field_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_select_repetitions_layout_edit_text"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
+            android:id="@+id/controls_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:autofillHints="Name"
-            android:hint="@string/remove_exercise_repetitions_text"
-            android:textColorHint="@color/slater_grey"
-            android:textSize="12sp"
-            app:boxStrokeColor="@color/black"
-            app:layout_constraintEnd_toStartOf="@+id/item_select_weights_or_bars_layout_edit_text"
-            app:layout_constraintStart_toEndOf="@+id/item_select_series_layout_edit_text"
-            app:layout_constraintTop_toBottomOf="@+id/select_exercises_item_image_view">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_select_repetitions_field_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/item_select_weights_or_bars_layout_edit_text"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:autofillHints="Name"
-            android:hint="@string/remove_exercise_weights_or_bars_text"
-            android:textColorHint="@color/slater_grey"
-            android:textSize="12sp"
-            app:boxStrokeColor="@color/black"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/select_exercises_item_image_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item_select_repetitions_layout_edit_text"
-            app:layout_constraintTop_toBottomOf="@+id/select_exercises_item_image_view">
+            app:layout_constraintStart_toEndOf="@+id/select_exercises_item_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/select_exercises_item_name_text_view">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/item_select_weights_or_bars_field_edit_text"
+            <!-- Séries -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textColor="@color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove_exercise_series_text"
+                    android:textColor="@color/slater_grey"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/decrease_series_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/decrease_series"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_remove_red" />
+
+                    <TextView
+                        android:id="@+id/item_select_series_field_text_view"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="3" />
+
+                    <ImageButton
+                        android:id="@+id/increase_series_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/increase_series"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_add_green" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Repetições -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove_exercise_repetitions_text"
+                    android:textColor="@color/slater_grey"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/decrease_repetitions_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/decrease_repetitions"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_remove_red" />
+
+                    <TextView
+                        android:id="@+id/item_select_repetitions_field_text_view"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="12" />
+
+                    <ImageButton
+                        android:id="@+id/increase_repetitions_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/increase_repetitions"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_add_green" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Peso -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/remove_exercise_weights_or_bars_text"
+                    android:textColor="@color/slater_grey"
+                    android:textSize="14sp" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/decrease_weight_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/decrease_weight"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_remove_red" />
+
+                    <TextView
+                        android:id="@+id/item_select_weights_or_bars_field_text_view"
+                        android:layout_width="36dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="20" />
+
+                    <ImageButton
+                        android:id="@+id/increase_weight_button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/increase_weight"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_add_green" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

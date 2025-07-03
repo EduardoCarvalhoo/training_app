@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TreinoAcademia</string>
 
@@ -83,4 +84,12 @@
     <string name="alert_dialog_continue_text">OK</string>
     <string name="theme_toggle_desc">Alternar tema escuro/claro</string>
     <string name="dark_mode">Modo Escuro</string>
+
+    <!-- Increment/Decrement buttons -->
+    <string name="decrease_series">Diminuir número de séries</string>
+    <string name="increase_series">Aumentar número de séries</string>
+    <string name="decrease_repetitions">Diminuir número de repetições</string>
+    <string name="increase_repetitions">Aumentar número de repetições</string>
+    <string name="decrease_weight">Diminuir peso</string>
+    <string name="increase_weight">Aumentar peso</string>
 </resources>
