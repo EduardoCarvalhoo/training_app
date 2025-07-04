@@ -51,7 +51,7 @@ class TrainingCreationActivity : AppCompatActivity() {
                 null
             ) {
                 finish()
-                ExerciseListCache.exerciseList = emptyList()
+                ExerciseListCache.exerciseList = mutableListOf()
             }
         }
         viewModel.errorWhenRegisteringLiveData.observe(this) { errorMessageCode ->

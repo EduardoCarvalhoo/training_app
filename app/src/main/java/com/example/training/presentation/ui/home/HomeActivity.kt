@@ -13,6 +13,7 @@ import com.example.treinoacademia.databinding.ActivityHomeBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.content.res.Configuration
 import android.widget.ImageButton
+import com.google.android.material.button.MaterialButton
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var themeManager: ThemeManager
@@ -77,6 +78,10 @@ class HomeActivity : AppCompatActivity() {
             homeTrainingListButton.setOnClickListener {
                 if (trainingData.isNotEmpty()) {
                     homeRecyclerView.isVisible = !homeRecyclerView.isVisible
+                    (homeTrainingListButton as MaterialButton).apply {
+                        setIconResource(if (homeRecyclerView.isVisible) R.drawable.ic_expand_less else R.drawable.ic_expand_more)
+                        setIconTintResource(if (homeRecyclerView.isVisible) R.color.green_500 else R.color.steel_grey)
+                    }
                 } else {
                     homeErrorMessageTextView.isVisible = !homeErrorMessageTextView.isVisible
                 }

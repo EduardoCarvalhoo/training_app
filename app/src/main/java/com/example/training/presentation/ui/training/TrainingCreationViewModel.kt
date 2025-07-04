@@ -60,8 +60,25 @@ class TrainingCreationViewModel(
 
     fun updateExerciseList() {
         viewModelScope.launch {
-            exercisesRepository.saveExerciseListInCache(exerciseList)
-            createExerciseMutableLiveData.postValue(Unit)
+            exercisesRepository.getExercisesInCache { exercisesResult ->
+                when (exercisesResult) {
+                    is ExercisesResult.Success -> {
+                        exerciseList = exercisesResult.value
+                        viewModelScope.launch {
+                            exercisesRepository.saveExerciseListInCache(exerciseList)
+                            createExerciseMutableLiveData.postValue(Unit)
+                        }
+                    }
+                    is ExercisesResult.Error -> {
+                        // Se não houver exercícios no cache, inicia com lista vazia
+                        exerciseList = emptyList()
+                        viewModelScope.launch {
+                            exercisesRepository.saveExerciseListInCache(exerciseList)
+                            createExerciseMutableLiveData.postValue(Unit)
+                        }
+                    }
+                }
+            }
         }
     }
 

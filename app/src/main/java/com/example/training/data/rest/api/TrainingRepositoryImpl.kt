@@ -36,9 +36,10 @@ class TrainingRepositoryImpl(
             trainingReference.collection(SELECTED_EXERCISES).document(training.data.toString()).set(
                 ExerciseListRequest(selectedExercises.map {
                     ExerciseRequest(
-                        it.name,
+                        it.id,
                         it.image,
                         it.observation,
+                        it.member,
                         it.isSelected,
                         it.series,
                         it.repetitions,
@@ -65,7 +66,7 @@ class TrainingRepositoryImpl(
                 val trainingList = documentsList.map { document ->
                     val trainingData = document.toObject(TrainingResponse::class.java)
                     Training(
-                        trainingData.name, trainingData.description, trainingData.data
+                        trainingData.id, trainingData.description, trainingData.data
                     )
                 }
                 resultCallback(TrainingListResult.Success(trainingList))

@@ -1,11 +1,12 @@
 package com.example.training.data.response
 
 data class ExerciseResponse(
-    val name: Int = 0,
+    val id: Int = 0,
     val image: String = "",
     val observation: String = "",
-    var isSelected: Boolean = false,
-    var series: String = "0",
-    var repetitions: String = "0",
-    var weight: String = "0"
+    val member: String = "",
+    val isSelected: Boolean = false,
+    val series: String = "0",
+    val repetitions: String = "0",
+    val weight: String = "0"
 )

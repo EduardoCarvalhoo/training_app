@@ -8,8 +8,16 @@ import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.databinding.ItemSelectExercisesBinding
 
 class ExercisesAdapter(
-    private val exercises: List<Exercise>
+    private var exercises: MutableList<Exercise>
 ) : RecyclerView.Adapter<ExercisesAdapter.ExercisesViewHolder>() {
+    
+    fun getExercises(): List<Exercise> = exercises.toList()
+
+    fun updateExercises(newExercises: List<Exercise>) {
+        exercises.clear()
+        exercises.addAll(newExercises)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExercisesViewHolder {
         val view =
             ItemSelectExercisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -17,7 +25,7 @@ class ExercisesAdapter(
     }
 
     override fun onBindViewHolder(holder: ExercisesViewHolder, position: Int) {
-        holder.bindView(exercises[position], position)
+        holder.bindView(exercises[position])
         holder.setIsRecyclable(false)
     }
 
@@ -28,72 +36,88 @@ class ExercisesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val checkBox = binding.selectExercisesItemCheckBox
 
-        fun bindView(item: Exercise, position: Int) {
+        fun bindView(item: Exercise) {
             with(binding) {
-                Glide.with(this@ExercisesViewHolder.itemView).load(item.image)
+                Glide.with(itemView).load(item.image)
                     .into(selectExercisesItemImageView)
 
                 selectExercisesItemNameTextView.text = item.observation
                 checkBox.isChecked = item.isSelected
-                itemView.setOnClickListener {
-                    item.isSelected = !item.isSelected
-                    checkBox.isChecked = item.isSelected
+                
+                // Configurar valores iniciais
+                itemSelectSeriesFieldTextView.text = item.series
+                itemSelectRepetitionsFieldTextView.text = item.repetitions
+                itemSelectWeightsOrBarsFieldTextView.text = item.weight
+
+                // Atualizar isSelected ao clicar no item ou no checkbox
+                val updateSelection = { isSelected: Boolean ->
+                    item.isSelected = isSelected
+                    checkBox.isChecked = isSelected
                 }
 
-                // Configurar valores iniciais
-                itemSelectSeriesFieldTextView.text = exercises[position].series
-                itemSelectRepetitionsFieldTextView.text = exercises[position].repetitions
-                itemSelectWeightsOrBarsFieldTextView.text = exercises[position].weight
+                itemView.setOnClickListener {
+                    updateSelection(!item.isSelected)
+                }
+
+                checkBox.setOnClickListener {
+                    updateSelection(checkBox.isChecked)
+                }
 
                 // Botões de séries
                 decreaseSeriesButton.setOnClickListener {
-                    val currentValue = itemSelectSeriesFieldTextView.text.toString().toIntOrNull() ?: 0
+                    val currentValue = item.series.toIntOrNull() ?: 0
                     if (currentValue > 0) {
                         val newValue = (currentValue - 1).toString()
                         itemSelectSeriesFieldTextView.text = newValue
-                        exercises[position].series = newValue
+                        item.series = newValue
+                        updateSelection(true)
                     }
                 }
 
                 increaseSeriesButton.setOnClickListener {
-                    val currentValue = itemSelectSeriesFieldTextView.text.toString().toIntOrNull() ?: 0
+                    val currentValue = item.series.toIntOrNull() ?: 0
                     val newValue = (currentValue + 1).toString()
                     itemSelectSeriesFieldTextView.text = newValue
-                    exercises[position].series = newValue
+                    item.series = newValue
+                    updateSelection(true)
                 }
 
                 // Botões de repetições
                 decreaseRepetitionsButton.setOnClickListener {
-                    val currentValue = itemSelectRepetitionsFieldTextView.text.toString().toIntOrNull() ?: 0
+                    val currentValue = item.repetitions.toIntOrNull() ?: 0
                     if (currentValue > 0) {
                         val newValue = (currentValue - 1).toString()
                         itemSelectRepetitionsFieldTextView.text = newValue
-                        exercises[position].repetitions = newValue
+                        item.repetitions = newValue
+                        updateSelection(true)
                     }
                 }
 
                 increaseRepetitionsButton.setOnClickListener {
-                    val currentValue = itemSelectRepetitionsFieldTextView.text.toString().toIntOrNull() ?: 0
+                    val currentValue = item.repetitions.toIntOrNull() ?: 0
                     val newValue = (currentValue + 1).toString()
                     itemSelectRepetitionsFieldTextView.text = newValue
-                    exercises[position].repetitions = newValue
+                    item.repetitions = newValue
+                    updateSelection(true)
                 }
 
                 // Botões de peso
                 decreaseWeightButton.setOnClickListener {
-                    val currentValue = itemSelectWeightsOrBarsFieldTextView.text.toString().toIntOrNull() ?: 0
-                    if (currentValue > 0) {
+                    val currentValue = item.weight.toIntOrNull() ?: 0
+                    if (currentValue >= 1) {
                         val newValue = (currentValue - 1).toString()
                         itemSelectWeightsOrBarsFieldTextView.text = newValue
-                        exercises[position].weight = newValue
+                        item.weight = newValue
+                        updateSelection(true)
                     }
                 }
 
                 increaseWeightButton.setOnClickListener {
-                    val currentValue = itemSelectWeightsOrBarsFieldTextView.text.toString().toIntOrNull() ?: 0
+                    val currentValue = item.weight.toIntOrNull() ?: 0
                     val newValue = (currentValue + 1).toString()
                     itemSelectWeightsOrBarsFieldTextView.text = newValue
-                    exercises[position].weight = newValue
+                    item.weight = newValue
+                    updateSelection(true)
                 }
             }
         }

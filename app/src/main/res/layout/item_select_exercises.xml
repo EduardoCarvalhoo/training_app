@@ -86,11 +86,13 @@
 
                     <ImageButton
                         android:id="@+id/decrease_series_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/decrease_series"
-                        android:padding="8dp"
                         android:src="@drawable/ic_remove_red" />
 
                     <TextView
@@ -105,11 +107,13 @@
 
                     <ImageButton
                         android:id="@+id/increase_series_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/increase_series"
-                        android:padding="8dp"
                         android:src="@drawable/ic_add_green" />
                 </LinearLayout>
             </LinearLayout>
@@ -141,11 +145,13 @@
 
                     <ImageButton
                         android:id="@+id/decrease_repetitions_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/decrease_repetitions"
-                        android:padding="8dp"
                         android:src="@drawable/ic_remove_red" />
 
                     <TextView
@@ -160,11 +166,13 @@
 
                     <ImageButton
                         android:id="@+id/increase_repetitions_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/increase_repetitions"
-                        android:padding="8dp"
                         android:src="@drawable/ic_add_green" />
                 </LinearLayout>
             </LinearLayout>
@@ -196,11 +204,13 @@
 
                     <ImageButton
                         android:id="@+id/decrease_weight_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/decrease_weight"
-                        android:padding="8dp"
                         android:src="@drawable/ic_remove_red" />
 
                     <TextView
@@ -215,11 +225,13 @@
 
                     <ImageButton
                         android:id="@+id/increase_weight_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:layout_gravity="center"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/increase_weight"
-                        android:padding="8dp"
                         android:src="@drawable/ic_add_green" />
                 </LinearLayout>
             </LinearLayout>

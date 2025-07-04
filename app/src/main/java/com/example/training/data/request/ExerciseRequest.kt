@@ -1,9 +1,10 @@
 package com.example.training.data.request
 
 data class ExerciseRequest(
-    val name: Int,
+    val id: Int,
     val image: String,
     val observation: String,
+    val member: String,
     var isSelected: Boolean = false,
     var series: String = "0",
     var repetitions: String = "0",

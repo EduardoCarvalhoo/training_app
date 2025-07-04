@@ -5,9 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Exercise(
-    val name: Int,
+    val id: Int,
     val image: String,
     val observation: String,
+    var member: String,
     var isSelected: Boolean = false,
     var series: String = "0",
     var repetitions: String = "0",

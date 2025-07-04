@@ -60,6 +60,7 @@
     <Button
         android:id="@+id/training_creation_add_exercises_button"
         android:layout_width="0dp"
+        app:strokeWidth="1dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:backgroundTint="?attr/colorButtonBackground"
