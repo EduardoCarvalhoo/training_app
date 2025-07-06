@@ -109,4 +109,9 @@ class TrainingCreationActivity : AppCompatActivity() {
             viewModel.getSelectedExerciseList()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ExerciseListCache.exerciseList = mutableListOf()
+    }
 }

@@ -68,7 +68,7 @@ class UpdateTrainingViewModel(
                     when (result) {
                         is TrainingResult.Success -> {
                             successfullySavedDataMutableLiveData.postValue(R.string.update_training_successfully_updated)
-                            ExerciseListCache.exerciseList = emptyList()
+                            ExerciseListCache.exerciseList = mutableListOf()
                         }
                         is TrainingResult.Error -> {
                             errorSavedDataMutableLiveData.postValue(R.string.update_training_error_when_updating_data)

@@ -70,7 +70,6 @@ class TrainingCreationViewModel(
                         }
                     }
                     is ExercisesResult.Error -> {
-                        // Se não houver exercícios no cache, inicia com lista vazia
                         exerciseList = emptyList()
                         viewModelScope.launch {
                             exercisesRepository.saveExerciseListInCache(exerciseList)

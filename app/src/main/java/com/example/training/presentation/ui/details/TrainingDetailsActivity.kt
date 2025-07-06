@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.update.UpdateTrainingActivity
+import com.example.training.utils.ExerciseListCache
 import com.example.training.utils.SELECTED_TRAINING
 import com.example.training.utils.getCompatParcelableExtra
 import com.example.training.utils.showAlertDialog
@@ -95,5 +96,10 @@ class TrainingDetailsActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ExerciseListCache.exerciseList = mutableListOf()
     }
 }
