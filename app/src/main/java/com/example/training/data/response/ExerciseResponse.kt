@@ -5,6 +5,7 @@ data class ExerciseResponse(
     val image: String = "",
     val observation: String = "",
     val member: String = "",
+    var description: String = "",
     val isSelected: Boolean = false,
     val series: String = "0",
     val repetitions: String = "0",

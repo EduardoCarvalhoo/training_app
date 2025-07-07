@@ -40,6 +40,7 @@ class TrainingRepositoryImpl(
                         it.image,
                         it.observation,
                         it.member,
+                        it.description,
                         it.isSelected,
                         it.series,
                         it.repetitions,

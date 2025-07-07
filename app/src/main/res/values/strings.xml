@@ -87,6 +87,9 @@
     <string name="theme_toggle_desc">Alternar tema escuro/claro</string>
     <string name="dark_mode">Modo Escuro</string>
 
+    <!-- execution_exercise -->
+    <string name="exercise_image_description">Execução do exercício</string>
+
     <!-- Buttons -->
     <string name="decrease_series">Diminuir número de séries</string>
     <string name="increase_series">Aumentar número de séries</string>
