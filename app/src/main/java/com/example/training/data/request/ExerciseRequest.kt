@@ -6,6 +6,7 @@ data class ExerciseRequest(
     val observation: String,
     val member: String,
     val description: String,
+    val muscle: String,
     var isSelected: Boolean = false,
     var series: String = "0",
     var repetitions: String = "0",

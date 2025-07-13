@@ -41,6 +41,7 @@ class TrainingRepositoryImpl(
                         it.observation,
                         it.member,
                         it.description,
+                        it.muscle,
                         it.isSelected,
                         it.series,
                         it.repetitions,

@@ -10,6 +10,7 @@ data class Exercise(
     val observation: String,
     var member: String,
     var description: String = "",
+    var muscle: String = "",
     var isSelected: Boolean = false,
     var series: String = "0",
     var repetitions: String = "0",

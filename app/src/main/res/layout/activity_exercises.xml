@@ -59,12 +59,34 @@
                     app:iconGravity="end"
                     app:iconTint="?attr/colorOnBackground" />
 
+                <!-- Container para os botões de músculos superiores -->
+                <LinearLayout
+                    android:id="@+id/superior_muscles_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:padding="12dp"
+                    android:layout_marginTop="2dp">
+
+                    <!-- Botões de músculos superiores serão adicionados dinamicamente -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/superior_muscles_chip_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacing="4dp"
+                        app:lineSpacing="4dp"
+                        app:singleSelection="false" />
+
+                </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/superior_exercises_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <!-- Seção Inferior -->
@@ -94,6 +116,27 @@
                     app:icon="@drawable/ic_expand_more"
                     app:iconGravity="end"
                     app:iconTint="?attr/colorOnBackground" />
+
+                <!-- Container para os botões de músculos inferiores -->
+                <LinearLayout
+                    android:id="@+id/inferior_muscles_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:padding="12dp"
+                    android:layout_marginTop="2dp">
+
+                    <!-- Botões de músculos inferiores serão adicionados dinamicamente -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/inferior_muscles_chip_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:chipSpacing="4dp"
+                        app:lineSpacing="4dp"
+                        app:singleSelection="false" />
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/inferior_exercises_recycler_view"

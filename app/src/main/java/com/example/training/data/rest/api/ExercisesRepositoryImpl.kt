@@ -31,7 +31,8 @@ class ExercisesRepositoryImpl(
                             exerciseResponse.image,
                             exerciseResponse.observation,
                             exerciseResponse.member,
-                            exerciseResponse.description
+                            exerciseResponse.description,
+                            exerciseResponse.muscle
                         )
                     }
                     exercisesCallBack(ExercisesResult.Success(exerciseList))
@@ -75,6 +76,7 @@ class ExercisesRepositoryImpl(
                                     it.observation,
                                     it.member,
                                     it.description,
+                                    it.muscle,
                                     it.isSelected,
                                     it.series,
                                     it.repetitions,

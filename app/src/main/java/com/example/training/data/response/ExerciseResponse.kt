@@ -6,6 +6,7 @@ data class ExerciseResponse(
     val observation: String = "",
     val member: String = "",
     var description: String = "",
+    var muscle: String = "",
     val isSelected: Boolean = false,
     val series: String = "0",
     val repetitions: String = "0",
