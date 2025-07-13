@@ -7,67 +7,104 @@ import androidx.lifecycle.viewModelScope
 import com.example.training.data.repository.ExercisesRepository
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.ExercisesResult
-import com.example.training.utils.Status
 import com.example.treinoacademia.R
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 
-class ExercisesViewModel(private val exercisesRepository: ExercisesRepository) : ViewModel() {
-    private val dataReadSuccessfullyMutableLiveData = MutableLiveData<List<Exercise>>()
-    val dataReadSuccessfullyLiveData: LiveData<List<Exercise>> = dataReadSuccessfullyMutableLiveData
-    private val errorReadingDataMutableLiveData = MutableLiveData<Int>()
-    val errorReadingDataLiveData: LiveData<Int> = errorReadingDataMutableLiveData
-    private val successfullySaveExerciseListMutableLiveData = MutableLiveData<Unit>()
-    val successfullySaveExerciseListLiveData: LiveData<Unit> =
-        successfullySaveExerciseListMutableLiveData
-    private var exerciseList: List<Exercise> = emptyList()
+class ExercisesViewModel(
+    private val exercisesRepository: ExercisesRepository
+) : ViewModel() {
+
+    private val _dataReadSuccessfullyLiveData = MutableLiveData<List<Exercise>>()
+    val dataReadSuccessfullyLiveData: LiveData<List<Exercise>> = _dataReadSuccessfullyLiveData
+
+    private val _errorReadingDataLiveData = MutableLiveData<Int>()
+    val errorReadingDataLiveData: LiveData<Int> = _errorReadingDataLiveData
+
+    private val _successfullySaveExerciseListLiveData = MutableLiveData<Unit>()
+    val successfullySaveExerciseListLiveData: LiveData<Unit> = _successfullySaveExerciseListLiveData
 
     fun getExerciseList() {
         viewModelScope.launch {
-            exercisesRepository.getExercisesInCache { result ->
-                when (result) {
-                    is ExercisesResult.Error -> {
-                        when (result.value) {
-                            Status.EMPTY_LIST_ERROR -> getExerciseListInServer()
-                            else -> return@getExercisesInCache
+            try {
+                // Busque os dados do cache e do servidor. Usamos 'async' para buscar em paralelo
+                // se suas implementações permitirem (ou sequencialmente, se preferir).
+                val cachedExercisesDeferred = async {
+                    var cachedList: List<Exercise>? = null
+                    exercisesRepository.getExercisesInCache { result ->
+                        if (result is ExercisesResult.Success) {
+                            cachedList = result.value
                         }
                     }
-                    is ExercisesResult.Success -> {
-                        exerciseList = result.value
-                        dataReadSuccessfullyMutableLiveData.postValue(exerciseList)
+                    cachedList
+                }
+
+                val serverExercisesDeferred = CompletableDeferred<List<Exercise>>()
+                exercisesRepository.getExerciseList { result ->
+                    when (result) {
+                        is ExercisesResult.Success -> serverExercisesDeferred.complete(result.value)
+                        is ExercisesResult.Error -> {
+                            serverExercisesDeferred.complete(emptyList())
+                        }
                     }
                 }
+
+                val cachedExercises = cachedExercisesDeferred.await()
+                val serverExercises = serverExercisesDeferred.await()
+
+                if (serverExercises.isEmpty() && cachedExercises.isNullOrEmpty()) {
+                    _errorReadingDataLiveData.value = R.string.empty_exercise_list_error
+                } else if (serverExercises.isNotEmpty()) {
+                    val mergedExercises = mergeExerciseLists(serverExercises, cachedExercises)
+                    _dataReadSuccessfullyLiveData.value = mergedExercises
+                } else {
+                    cachedExercises?.let {
+                        _dataReadSuccessfullyLiveData.value = it
+                    } ?: run {
+                        _errorReadingDataLiveData.value = R.string.empty_exercise_list_error
+                    }
+                }
+            } catch (e: Exception) {
+                _errorReadingDataLiveData.value = R.string.server_error
             }
         }
     }
 
-    private fun getExerciseListInServer() {
-        viewModelScope.launch {
-            exercisesRepository.getExerciseList { result ->
-                when (result) {
-                    is ExercisesResult.Success -> {
-                        exerciseList = result.value
-                        dataReadSuccessfullyMutableLiveData.postValue(exerciseList)
-                    }
-                    is ExercisesResult.Error -> {
-                        when (result.value) {
-                            Status.EMPTY_LIST_ERROR -> {
-                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data)
-                            }
-                            Status.SERVER_ERROR -> {
-                                errorReadingDataMutableLiveData.postValue(R.string.exercises_error_reading_data_from_server)
-                            }
-                            else -> return@getExerciseList
-                        }
-                    }
-                }
-            }
+    private fun mergeExerciseLists(
+        serverExercises: List<Exercise>,
+        cachedExercises: List<Exercise>?
+    ): List<Exercise> {
+        if (cachedExercises == null) {
+            return serverExercises // Se não há cache, retorna apenas os dados do servidor
+        }
+
+        val cachedMap = cachedExercises.associateBy { it.id }
+        return serverExercises.map { serverExercise ->
+            cachedMap[serverExercise.id]?.let { cachedExercise ->
+                // Se existe uma versão em cache, sobrescreve os campos de estado do usuário
+                serverExercise.copy(
+                    isSelected = cachedExercise.isSelected,
+                    series = cachedExercise.series,
+                    repetitions = cachedExercise.repetitions,
+                    weight = cachedExercise.weight
+                )
+            } ?: serverExercise
         }
     }
 
-    fun saveExerciseList() {
+    fun saveExercisesInCache(selectedExercises: List<Exercise>) {
         viewModelScope.launch {
-            exercisesRepository.saveExerciseListInCache(exerciseList)
-            successfullySaveExerciseListMutableLiveData.postValue(Unit)
+            try {
+                if (selectedExercises.isEmpty()) {
+                    _errorReadingDataLiveData.value = R.string.no_exercises_selected_error
+                    return@launch
+                }
+                exercisesRepository.saveExerciseListInCache(selectedExercises)
+                _successfullySaveExerciseListLiveData.value = Unit
+            } catch (e: Exception) {
+                _errorReadingDataLiveData.value = R.string.error_saving_exercises
+            }
         }
     }
 }

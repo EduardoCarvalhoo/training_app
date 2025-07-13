@@ -40,5 +40,6 @@ class ExecutionExerciseActivity : AppCompatActivity() {
     private fun setExerciseView() {
         Glide.with(this@ExecutionExerciseActivity).load(exercise?.image)
             .into(binding.executionExerciseImageView)
+        binding.executionExerciseDescription.text = exercise?.description ?: ""
     }
 }

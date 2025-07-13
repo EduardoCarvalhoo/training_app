@@ -1,4 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Strings existentes mantidas -->
     <string name="app_name">TreinoAcademia</string>
 
     <!-- Login -->
@@ -39,12 +41,12 @@
     <string name="training_creation_title_text">Criar Treino</string>
     <string name="training_creation_description_text">Defina o nome do treino</string>
     <string name="training_creation_type_text">Ex: treino de peito</string>
-    <string name="training_creation_add_exercises_text">Adicione seus exercícios</string>
-    <string name="training_creation_button">Criar Treino</string>
-    <string name="training_creation_button_description">Botão criar treino</string>
     <string name="training_creation_success_saving_data">Treino criado com sucesso</string>
     <string name="training_creation_error_saving_data">Erro ao criar treino</string>
     <string name="training_empty_field_text">Campo de treino vazio ou sem exercício adicionado</string>
+    <string name="training_creation_add_exercises_text">Adicionar Exercícios</string>
+    <string name="training_creation_button_description">Botão criar treino</string>
+    <string name="training_creation_button">Criar Treino</string>
 
     <!-- exercises -->
     <string name="exercises_title_text">Adicionar Exercícios</string>
@@ -52,22 +54,23 @@
     <string name="exercises_error_reading_data">Erro ao ler documento, ele não existe ou está vazio</string>
     <string name="exercises_error_reading_data_from_server">Erro ao ler dados do servidor</string>
     <string name="exercises_successfully_added_text">Exercícios adicionados com sucesso!</string>
+    <string name="empty_exercise_list_error">Nenhum exercício disponível</string>
+    <string name="server_error">Erro ao acessar o servidor</string>
+    <string name="no_exercises_selected_error">Nenhum exercício selecionado</string>
+    <string name="error_saving_exercises">Erro ao salvar exercícios</string>
 
     <!-- remove_exercise_item -->
-    remove_exercise_item_image_view
     <string name="remove_exercise_item_image_description">Imagem do exercício</string>
     <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
     <string name="remove_exercise_series_text">Séries</string>
     <string name="remove_exercise_repetitions_text">Repetições</string>
     <string name="remove_exercise_weights_or_bars_text">Kg/Barras</string>
 
-
     <!-- training_details -->
     <string name="training_details_informative_text_view">Exercícios do treino</string>
     <string name="training_details_delete_button">Deletar</string>
     <string name="training_details_success_deleting_training">Sucesso ao deletar treino</string>
     <string name="training_details_error_deleting_training">Erro ao deletar treino</string>
-
 
     <!-- update_training -->
     <string name="update_training_button">Atualizar</string>
@@ -81,5 +84,17 @@
     <string name="alert_dialog_positive_message_text">Sim</string>
     <string name="alert_dialog_negative_message_text">Não</string>
     <string name="alert_dialog_continue_text">OK</string>
+    <string name="theme_toggle_desc">Alternar tema escuro/claro</string>
+    <string name="dark_mode">Modo Escuro</string>
 
+    <!-- execution_exercise -->
+    <string name="exercise_image_description">Execução do exercício</string>
+
+    <!-- Buttons -->
+    <string name="decrease_series">Diminuir número de séries</string>
+    <string name="increase_series">Aumentar número de séries</string>
+    <string name="decrease_repetitions">Diminuir número de repetições</string>
+    <string name="increase_repetitions">Aumentar número de repetições</string>
+    <string name="decrease_weight">Diminuir peso</string>
+    <string name="increase_weight">Aumentar peso</string>
 </resources>

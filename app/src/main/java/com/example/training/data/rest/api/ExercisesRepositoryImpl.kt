@@ -27,9 +27,12 @@ class ExercisesRepositoryImpl(
                     val exerciseList = documentsList.map {
                         val exerciseResponse = it.toObject(ExerciseResponse::class.java)
                         Exercise(
-                            exerciseResponse.name,
+                            exerciseResponse.id,
                             exerciseResponse.image,
-                            exerciseResponse.observation
+                            exerciseResponse.observation,
+                            exerciseResponse.member,
+                            exerciseResponse.description,
+                            exerciseResponse.muscle
                         )
                     }
                     exercisesCallBack(ExercisesResult.Success(exerciseList))
@@ -68,9 +71,12 @@ class ExercisesRepositoryImpl(
                         exercisesByTrainingCallback(ExercisesResult.Success(
                             selectedExercises.selectedExerciseList.map {
                                 Exercise(
-                                    it.name,
+                                    it.id,
                                     it.image,
                                     it.observation,
+                                    it.member,
+                                    it.description,
+                                    it.muscle,
                                     it.isSelected,
                                     it.series,
                                     it.repetitions,
@@ -78,6 +84,8 @@ class ExercisesRepositoryImpl(
                                 )
                             }
                         ))
+                    } else {
+                        exercisesByTrainingCallback(ExercisesResult.Error(Status.EMPTY_LIST_ERROR))
                     }
                 } else {
                     exercisesByTrainingCallback(ExercisesResult.Error(Status.EMPTY_LIST_ERROR))

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.exercises.ExercisesActivity
+import com.example.training.utils.ExerciseListCache
 import com.example.training.utils.SELECTED_TRAINING
 import com.example.training.utils.getCompatParcelableExtra
 import com.example.training.utils.showAlertDialog
@@ -72,6 +73,7 @@ class UpdateTrainingActivity : AppCompatActivity() {
 
     private fun setDescriptionEditText() {
         binding.updateTrainingFieldEditText.setText(training?.description)
+        binding.updateTrainingFieldEditText.requestFocus()
     }
 
     private fun addExercises() {
@@ -92,5 +94,10 @@ class UpdateTrainingActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.getSelectedExerciseList()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ExerciseListCache.exerciseList = mutableListOf()
     }
 }

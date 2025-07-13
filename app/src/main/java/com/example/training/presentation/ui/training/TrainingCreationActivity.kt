@@ -2,10 +2,7 @@ package com.example.training.presentation.ui.training
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.menu.MenuView.ItemView
 import com.example.training.domain.model.Exercise
 import com.example.training.domain.model.Training
 import com.example.training.presentation.ui.exercises.ExercisesActivity
@@ -54,7 +51,7 @@ class TrainingCreationActivity : AppCompatActivity() {
                 null
             ) {
                 finish()
-                ExerciseListCache.exerciseList = emptyList()
+                ExerciseListCache.exerciseList = mutableListOf()
             }
         }
         viewModel.errorWhenRegisteringLiveData.observe(this) { errorMessageCode ->
@@ -70,6 +67,7 @@ class TrainingCreationActivity : AppCompatActivity() {
     }
 
     private fun registerTraining() {
+        binding.trainingCreationFieldEditText.requestFocus()
         binding.trainingCreationButton.setOnClickListener {
             val randomNumber = Random.nextInt(MAXIMUM_RANDOM_NUMBER)
             val typeOfTraining = binding.trainingCreationFieldEditText.text.toString()
@@ -110,5 +108,10 @@ class TrainingCreationActivity : AppCompatActivity() {
         binding.trainingCreationRecyclerView.adapter = TrainingCreationAdapter(exerciseList) {
             viewModel.getSelectedExerciseList()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ExerciseListCache.exerciseList = mutableListOf()
     }
 }

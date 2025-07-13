@@ -1,7 +1,5 @@
 package com.example.training.presentation.ui.exercises
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +8,16 @@ import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.databinding.ItemSelectExercisesBinding
 
 class ExercisesAdapter(
-    private val exercises: List<Exercise>
+    private var exercises: MutableList<Exercise>
 ) : RecyclerView.Adapter<ExercisesAdapter.ExercisesViewHolder>() {
+    
+    fun getExercises(): List<Exercise> = exercises.toList()
+
+    fun updateExercises(newExercises: List<Exercise>) {
+        exercises.clear()
+        exercises.addAll(newExercises)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExercisesViewHolder {
         val view =
             ItemSelectExercisesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +25,7 @@ class ExercisesAdapter(
     }
 
     override fun onBindViewHolder(holder: ExercisesViewHolder, position: Int) {
-        holder.bindView(exercises[position], position)
+        holder.bindView(exercises[position])
         holder.setIsRecyclable(false)
     }
 
@@ -30,54 +36,89 @@ class ExercisesAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         private val checkBox = binding.selectExercisesItemCheckBox
 
-        fun bindView(item: Exercise, position: Int) {
+        fun bindView(item: Exercise) {
             with(binding) {
-                Glide.with(this@ExercisesViewHolder.itemView).load(item.image)
+                Glide.with(itemView).load(item.image)
                     .into(selectExercisesItemImageView)
 
                 selectExercisesItemNameTextView.text = item.observation
                 checkBox.isChecked = item.isSelected
-                itemView.setOnClickListener {
-                    item.isSelected = !item.isSelected
-                    checkBox.isChecked = item.isSelected
+                
+                // Configurar valores iniciais
+                itemSelectSeriesFieldTextView.text = item.series
+                itemSelectRepetitionsFieldTextView.text = item.repetitions
+                itemSelectWeightsOrBarsFieldTextView.text = item.weight
+
+                // Atualizar isSelected ao clicar no item ou no checkbox
+                val updateSelection = { isSelected: Boolean ->
+                    item.isSelected = isSelected
+                    checkBox.isChecked = isSelected
                 }
 
-                itemSelectSeriesFieldEditText.setText(exercises[position].series)
-                itemSelectRepetitionsFieldEditText.setText(exercises[position].repetitions)
-                itemSelectWeightsOrBarsFieldEditText.setText(exercises[position].weight)
+                itemView.setOnClickListener {
+                    updateSelection(!item.isSelected)
+                }
 
+                checkBox.setOnClickListener {
+                    updateSelection(checkBox.isChecked)
+                }
 
-                itemSelectSeriesFieldEditText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        exercises[position].series = itemSelectSeriesFieldEditText.text.toString()
+                // Botões de séries
+                decreaseSeriesButton.setOnClickListener {
+                    val currentValue = item.series.toIntOrNull() ?: 0
+                    if (currentValue > 0) {
+                        val newValue = (currentValue - 1).toString()
+                        itemSelectSeriesFieldTextView.text = newValue
+                        item.series = newValue
+                        updateSelection(true)
                     }
+                }
 
-                    override fun afterTextChanged(p0: Editable?) {}
-                })
+                increaseSeriesButton.setOnClickListener {
+                    val currentValue = item.series.toIntOrNull() ?: 0
+                    val newValue = (currentValue + 1).toString()
+                    itemSelectSeriesFieldTextView.text = newValue
+                    item.series = newValue
+                    updateSelection(true)
+                }
 
-                itemSelectRepetitionsFieldEditText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        exercises[position].repetitions =
-                            itemSelectRepetitionsFieldEditText.text.toString()
+                // Botões de repetições
+                decreaseRepetitionsButton.setOnClickListener {
+                    val currentValue = item.repetitions.toIntOrNull() ?: 0
+                    if (currentValue > 0) {
+                        val newValue = (currentValue - 1).toString()
+                        itemSelectRepetitionsFieldTextView.text = newValue
+                        item.repetitions = newValue
+                        updateSelection(true)
                     }
+                }
 
-                    override fun afterTextChanged(p0: Editable?) {}
-                })
+                increaseRepetitionsButton.setOnClickListener {
+                    val currentValue = item.repetitions.toIntOrNull() ?: 0
+                    val newValue = (currentValue + 1).toString()
+                    itemSelectRepetitionsFieldTextView.text = newValue
+                    item.repetitions = newValue
+                    updateSelection(true)
+                }
 
-                itemSelectWeightsOrBarsFieldEditText.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                        exercises[position].weight =
-                            itemSelectWeightsOrBarsFieldEditText.text.toString()
+                // Botões de peso
+                decreaseWeightButton.setOnClickListener {
+                    val currentValue = item.weight.toIntOrNull() ?: 0
+                    if (currentValue >= 1) {
+                        val newValue = (currentValue - 1).toString()
+                        itemSelectWeightsOrBarsFieldTextView.text = newValue
+                        item.weight = newValue
+                        updateSelection(true)
                     }
+                }
 
-                    override fun afterTextChanged(p0: Editable?) {}
-                })
+                increaseWeightButton.setOnClickListener {
+                    val currentValue = item.weight.toIntOrNull() ?: 0
+                    val newValue = (currentValue + 1).toString()
+                    itemSelectWeightsOrBarsFieldTextView.text = newValue
+                    item.weight = newValue
+                    updateSelection(true)
+                }
             }
         }
     }

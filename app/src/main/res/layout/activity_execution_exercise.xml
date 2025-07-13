@@ -10,7 +10,7 @@
         android:id="@+id/execution_exercise_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#215FDA"
+        android:background="?attr/colorPrimary"
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,13 +18,54 @@
 
     <ImageView
         android:id="@+id/execution_exercise_image_view"
-        android:layout_width="360dp"
-        android:layout_height="360dp"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:layout_marginTop="80dp"
-        android:importantForAccessibility="no"
+        android:background="@color/white"
+        android:contentDescription="@string/exercise_image_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/execution_exercise_toolbar"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/execution_exercise_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:padding="8dp"
+        android:text="Como fazer:"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/execution_exercise_image_view" />
+
+    <ScrollView
+        android:id="@+id/execution_exercise_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/execution_exercise_title">
+
+        <TextView
+            android:id="@+id/execution_exercise_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="16sp"
+            tools:text="Aqui vem a descrição do exercício. Este texto pode conter entre 10 a 20 linhas, explicando como executar o exercício corretamente, destacando os cuidados e a postura ideal." />
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

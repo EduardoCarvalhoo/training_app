@@ -35,6 +35,13 @@ class TrainingDetailsViewModel(
             exercisesRepository.getListOfExercisesByTraining(trainingRequest) { result: ExercisesResult ->
                 when (result) {
                     is ExercisesResult.Success -> {
+                        val trainingExercises = result.value
+                        val exercisesToCache = trainingExercises.map { exercise ->
+                            exercise.copy(isSelected = true)
+                        }
+                        viewModelScope.launch {
+                            exercisesRepository.saveExerciseListInCache(exercisesToCache)
+                        }
                         dataReadSuccessfullyMutableLiveData.postValue(result.value)
                     }
                     is ExercisesResult.Error -> {
