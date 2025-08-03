@@ -5,12 +5,12 @@
 
     <!-- Login -->
     <string name="login_logo_content_description">logo app de treino</string>
-    <string name="login_welcome_text">BEM VINDO AO TRAINING APP</string>
+    <string name="login_welcome_text">Gerencie seus treinos com facilidade</string>
     <string name="login_description_text">Faça login ou cadastre-se</string>
-    <string name="login_email_hint">E-mail</string>
-    <string name="login_password_hint">Senha</string>
+    <string name="login_email_hint">Digite seu e-mail</string>
+    <string name="login_password_hint">Crie uma senha</string>
     <string name="login_enter_the_app_button">Entrar</string>
-    <string name="login_register_text">CRIAR CONTA</string>
+    <string name="login_register_text">Criar conta</string>
     <string name="login_email_error_message_text">Email no formato inválido</string>
     <string name="login_password_error_message_text">Senha deve ser no mínimo 6 digitos </string>
     <string name="login_User_authenticated_successfully_toast">Usuário autenticado com sucesso</string>
@@ -22,7 +22,7 @@
     <!-- Register -->
     <string name="register_account_toolbar">Cadastrar conta</string>
     <string name="register_successfully_registered_user">Usuário cadastrado com sucesso</string>
-    <string name="register_title_text">Seja bem vindo(a), faça seu cadastro para acessar o app!</string>
+    <string name="register_title_text">Crie sua conta para começar a treinar!</string>
     <string name="register_failed_to_register_user">Falha ao registrar usuário, tente novamente!</string>
     <string name="register_button_text">Cadastrar</string>
     <string name="register_email_error_message_text">Email no formato inválido ou senha inválida</string>
@@ -62,9 +62,9 @@
     <!-- remove_exercise_item -->
     <string name="remove_exercise_item_image_description">Imagem do exercício</string>
     <string name="remove_exercise_item_delete_button">Botão Excluir Exercício</string>
-    <string name="remove_exercise_series_text">Séries</string>
-    <string name="remove_exercise_repetitions_text">Repetições</string>
-    <string name="remove_exercise_weights_or_bars_text">Kg/Barras</string>
+    <string name="remove_exercise_series_text">Séries:</string>
+    <string name="remove_exercise_repetitions_text">Repetições:</string>
+    <string name="remove_exercise_weights_or_bars_text">Kg/Barras:</string>
 
     <!-- training_details -->
     <string name="training_details_informative_text_view">Exercícios do treino</string>

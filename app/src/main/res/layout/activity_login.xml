@@ -26,7 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="44dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:text="@string/login_welcome_text"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -41,8 +41,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="44dp"
+        android:textStyle="bold"
         android:text="@string/login_description_text"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -56,8 +57,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="20dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/purple_500"
         app:hintTextColor="@color/black"
@@ -74,7 +74,7 @@
             android:hint="@string/login_email_hint"
             android:inputType="textEmailAddress"
             android:textColor="@color/slater_grey"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +82,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/purple_500"
@@ -101,14 +100,13 @@
             android:hint="@string/login_password_hint"
             android:inputType="textPassword"
             android:textColor="@color/gunmetal"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/login_enter_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
         android:padding="16dp"
@@ -130,15 +128,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
         android:id="@+id/login_register_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="16dp"
         android:text="@string/login_register_text"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:backgroundTint="#000000"
+        android:padding="16dp"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/login_end_guideline"

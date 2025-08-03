@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
     android:layout_marginTop="6dp"
-    app:cardBackgroundColor="?attr/colorButtonBackground"
+    app:cardBackgroundColor="?attr/colorBackground"
     app:cardCornerRadius="2dp"
     app:cardElevation="4dp">
 
@@ -17,26 +17,24 @@
 
         <ImageView
             android:id="@+id/remove_exercise_item_image_view"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/remove_exercise_item_image_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/remove_exercise_item_name_text_view"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/remove_exercise_item_name_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/remove_exercise_item_delete_button"
-            app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_image_view"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Supino Reto" />
 
@@ -47,10 +45,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="26dp"
             android:text="@string/remove_exercise_series_text"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_image_view"
             app:layout_constraintTop_toBottomOf="@+id/remove_exercise_item_name_text_view" />
 
@@ -59,9 +57,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="26dp"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/remove_exercise_item_delete_button"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_series_text_view"
             app:layout_constraintTop_toBottomOf="@+id/remove_exercise_item_name_text_view"
@@ -76,7 +74,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/remove_exercise_repetitions_text"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_image_view"
             app:layout_constraintTop_toBottomOf="@+id/remove_exercise_item_series_text_view" />
 
@@ -87,7 +85,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/remove_exercise_item_delete_button"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_repetitions_text_view"
@@ -98,10 +96,9 @@
             android:id="@+id/remove_exercise_item_delete_button"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="?attr/colorButtonBackground"
+            android:background="?attr/colorBackground"
             android:contentDescription="@string/remove_exercise_item_delete_button"
             android:src="@drawable/ic_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -114,7 +111,7 @@
             android:layout_marginTop="4dp"
             android:text="@string/remove_exercise_weights_or_bars_text"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_image_view"
             app:layout_constraintTop_toBottomOf="@+id/remove_exercise_item_repetitions_text_view" />
 
@@ -125,7 +122,7 @@
             android:layout_marginHorizontal="8dp"
             android:layout_marginTop="4dp"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="12sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toStartOf="@+id/remove_exercise_item_delete_button"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/remove_exercise_item_repetitions_text_view"

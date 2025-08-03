@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.training.domain.model.Exercise
 import com.example.treinoacademia.R
 import com.example.treinoacademia.databinding.ActivityExercisesBinding
-import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,15 +19,6 @@ class ExercisesActivity : AppCompatActivity() {
     private val viewModel: ExercisesViewModel by viewModel()
     private lateinit var superiorExercisesAdapter: ExercisesAdapter
     private lateinit var inferiorExercisesAdapter: ExercisesAdapter
-
-    // Listas para armazenar todos os exercícios
-    private var allSuperiorExercises: List<Exercise> = emptyList()
-    private var allInferiorExercises: List<Exercise> = emptyList()
-
-    // Músculos selecionados
-    private val selectedSuperiorMuscles = mutableSetOf<String>()
-    private val selectedInferiorMuscles = mutableSetOf<String>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,40 +40,59 @@ class ExercisesActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
+        // Configurar o adaptador para exercícios superiores
         superiorExercisesAdapter = ExercisesAdapter(mutableListOf())
-        inferiorExercisesAdapter = ExercisesAdapter(mutableListOf())
-
         binding.superiorExercisesRecyclerView.apply {
             adapter = superiorExercisesAdapter
             layoutManager = LinearLayoutManager(this@ExercisesActivity)
+            setHasFixedSize(true)
         }
-
+        
+        // Configurar o adaptador para exercícios inferiores
+        inferiorExercisesAdapter = ExercisesAdapter(mutableListOf())
         binding.inferiorExercisesRecyclerView.apply {
             adapter = inferiorExercisesAdapter
             layoutManager = LinearLayoutManager(this@ExercisesActivity)
+            setHasFixedSize(true)
         }
     }
 
     private fun setupExpandButtons() {
         binding.superiorButton.setOnClickListener {
-            toggleSection(
-                container = binding.superiorMusclesContainer,
-                recyclerView = binding.superiorExercisesRecyclerView,
-                button = binding.superiorButton,
-                isExpanded = binding.superiorMusclesContainer.visibility == View.VISIBLE
-            )
+            val isExpanded = binding.superiorMusclesContainer.visibility == View.VISIBLE
+            viewModel.setLoadingState(true)
+            // Adia a execução para garantir que o loading seja exibido primeiro
+            it.post {
+                toggleSection(
+                    container = binding.superiorMusclesContainer,
+                    recyclerView = binding.superiorExercisesRecyclerView,
+                    button = binding.superiorButton,
+                    isExpanded = isExpanded
+                )
+            }
         }
 
         binding.inferiorButton.setOnClickListener {
-            toggleSection(
-                container = binding.inferiorMusclesContainer,
-                recyclerView = binding.inferiorExercisesRecyclerView,
-                button = binding.inferiorButton,
-                isExpanded = binding.inferiorMusclesContainer.visibility == View.VISIBLE
-            )
+            val isExpanded = binding.inferiorMusclesContainer.visibility == View.VISIBLE
+            viewModel.setLoadingState(true)
+            // Adia a execução para garantir que o loading seja exibido primeiro
+            it.post {
+                toggleSection(
+                    container = binding.inferiorMusclesContainer,
+                    recyclerView = binding.inferiorExercisesRecyclerView,
+                    button = binding.inferiorButton,
+                    isExpanded = isExpanded
+                )
+            }
         }
     }
 
+    // Pré-carregar os drawables para evitar inflação repetida
+    private val expandMoreDrawable by lazy { ContextCompat.getDrawable(this, R.drawable.ic_expand_more)?.mutate() }
+    private val expandLessDrawable by lazy { ContextCompat.getDrawable(this, R.drawable.ic_expand_less)?.mutate() }
+    private val slaterGreyColor by lazy { ContextCompat.getColor(this, R.color.slater_grey) }
+    private val greenColor by lazy { ContextCompat.getColor(this, R.color.green_500) }
+    
     private fun toggleSection(
         container: View,
         recyclerView: View,
@@ -94,68 +103,83 @@ class ExercisesActivity : AppCompatActivity() {
             // Fechar seção
             container.visibility = View.GONE
             recyclerView.visibility = View.GONE
-            button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_more, 0)
-            button.compoundDrawables[2]?.setTint(ContextCompat.getColor(this, R.color.slater_grey))
+            // Usar drawables pré-carregados
+            expandMoreDrawable?.let { drawable ->
+                drawable.setTint(slaterGreyColor)
+                button.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+            }
         } else {
             // Abrir seção
             container.visibility = View.VISIBLE
             recyclerView.visibility = View.VISIBLE
-            button.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_expand_less, 0)
-            button.compoundDrawables[2]?.setTint(ContextCompat.getColor(this, R.color.green_500))
+            // Usar drawables pré-carregados
+            expandLessDrawable?.let { drawable ->
+                drawable.setTint(greenColor)
+                button.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null)
+            }
         }
+        viewModel.setLoadingState(false)
     }
 
     private fun setupObserver() {
+        // Observar dados carregados com sucesso
         viewModel.dataReadSuccessfullyLiveData.observe(this) { exercises ->
-            val (superiorExercises, inferiorExercises) = exercises.partition { it.member == "Superior" }
-
-            // Armazenar todas as listas
-            allSuperiorExercises = superiorExercises
-            allInferiorExercises = inferiorExercises
-
             // Configurar os chips de músculos
-            setupMuscleChips(superiorExercises, binding.superiorMusclesChipGroup, true)
-            setupMuscleChips(inferiorExercises, binding.inferiorMusclesChipGroup, false)
-
-            // Atualizar os adaptadores (inicialmente mostra todos)
-            superiorExercisesAdapter.updateExercises(superiorExercises)
-            inferiorExercisesAdapter.updateExercises(inferiorExercises)
+            setupMuscleChips(viewModel.getUniqueMuscles(true), binding.superiorMusclesChipGroup, true)
+            setupMuscleChips(viewModel.getUniqueMuscles(false), binding.inferiorMusclesChipGroup, false)
+        }
+        
+        // Observar exercícios superiores filtrados
+        viewModel.filteredSuperiorExercises.observe(this) { exercises ->
+            superiorExercisesAdapter.updateExercises(exercises)
+        }
+        
+        // Observar exercícios inferiores filtrados
+        viewModel.filteredInferiorExercises.observe(this) { exercises ->
+            inferiorExercisesAdapter.updateExercises(exercises)
         }
 
+        // Observar erros na leitura de dados
         viewModel.errorReadingDataLiveData.observe(this) { messageId ->
             Toast.makeText(this, getString(messageId), Toast.LENGTH_SHORT).show()
         }
 
+        // Observar sucesso ao salvar exercícios
         viewModel.successfullySaveExerciseListLiveData.observe(this) {
+            setResult(RESULT_OK)
             finish()
+        }
+
+        viewModel.loadingState.observe(this) { isLoading ->
+            binding.loadingProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
     }
 
-    private fun setupMuscleChips(exercises: List<Exercise>, chipGroup: ChipGroup, isSuperior: Boolean) {
+    private fun setupMuscleChips(muscles: List<String>, chipGroup: ChipGroup, isSuperior: Boolean) {
         // Limpar chips existentes
         chipGroup.removeAllViews()
 
-        // Obter músculos únicos
-        val muscles = exercises.map { it.muscle }.distinct().sorted()
-
         // Criar chip "Todos"
         val allChip = Chip(this).apply {
+            id = View.generateViewId()
             text = "Todos"
             isCheckable = true
             isChecked = true
+            setChipBackgroundColorResource(R.color.chip_background_selected)
+            setTextColor(ContextCompat.getColor(context, R.color.chip_text_selected))
             setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    // Desmarcar todos os outros chips
+                    // Desmarcar todos os outros chips sem disparar eventos
                     for (i in 1 until chipGroup.childCount) {
-                        (chipGroup.getChildAt(i) as Chip).isChecked = false
+                        val chip = chipGroup.getChildAt(i) as? Chip
+                        chip?.setOnCheckedChangeListener(null)
+                        chip?.isChecked = false
+                        chip?.setOnCheckedChangeListener { _, chipIsChecked ->
+                            viewModel.updateMuscleSelection(chip.text.toString(), chipIsChecked, isSuperior)
+                        }
                     }
-                    if (isSuperior) {
-                        selectedSuperiorMuscles.clear()
-                        filterExercises(allSuperiorExercises, superiorExercisesAdapter, selectedSuperiorMuscles)
-                    } else {
-                        selectedInferiorMuscles.clear()
-                        filterExercises(allInferiorExercises, inferiorExercisesAdapter, selectedInferiorMuscles)
-                    }
+                    
+                    viewModel.clearMuscleSelections(isSuperior)
                 }
             }
         }
@@ -164,73 +188,49 @@ class ExercisesActivity : AppCompatActivity() {
         // Criar chips para cada músculo
         muscles.forEach { muscle ->
             val chip = Chip(this).apply {
+                id = View.generateViewId()
                 text = muscle
                 isCheckable = true
-                setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        // Desmarcar o chip "Todos"
-                        allChip.isChecked = false
-
-                        if (isSuperior) {
-                            selectedSuperiorMuscles.add(muscle)
-                            filterExercises(allSuperiorExercises, superiorExercisesAdapter, selectedSuperiorMuscles)
-                        } else {
-                            selectedInferiorMuscles.add(muscle)
-                            filterExercises(allInferiorExercises, inferiorExercisesAdapter, selectedInferiorMuscles)
-                        }
-                    } else {
-                        if (isSuperior) {
-                            selectedSuperiorMuscles.remove(muscle)
-                            if (selectedSuperiorMuscles.isEmpty()) {
-                                allChip.isChecked = true
-                            } else {
-                                filterExercises(allSuperiorExercises, superiorExercisesAdapter, selectedSuperiorMuscles)
-                            }
-                        } else {
-                            selectedInferiorMuscles.remove(muscle)
-                            if (selectedInferiorMuscles.isEmpty()) {
-                                allChip.isChecked = true
-                            } else {
-                                filterExercises(allInferiorExercises, inferiorExercisesAdapter, selectedInferiorMuscles)
+                setChipBackgroundColorResource(R.color.chip_background_selected)
+                    setTextColor(ContextCompat.getColor(context, R.color.chip_text_selected))
+                    setOnCheckedChangeListener { _, isChecked ->
+                        viewModel.updateMuscleSelection(muscle, isChecked, isSuperior)
+                        if (isChecked) {
+                            // Desmarcar o chip "Todos"
+                            allChip.setOnCheckedChangeListener(null)
+                            allChip.isChecked = false
+                            allChip.setOnCheckedChangeListener { _, allIsChecked ->
+                                if (allIsChecked) {
+                                    viewModel.clearMuscleSelections(isSuperior)
+                                }
                             }
                         }
                     }
                 }
+                chipGroup.addView(chip)
             }
-            chipGroup.addView(chip)
-        }
     }
-
-    private fun filterExercises(
-        allExercises: List<Exercise>,
-        adapter: ExercisesAdapter,
-        selectedMuscles: Set<String>
-    ) {
-        val filteredExercises = if (selectedMuscles.isEmpty()) {
-            allExercises
-        } else {
-            allExercises.filter { it.muscle in selectedMuscles }
-        }
-        adapter.updateExercises(filteredExercises)
-    }
-
 
     private fun setupSaveButton() {
         binding.exercisesSaveExercisesButton.setOnClickListener {
-            val selectedExercises = (superiorExercisesAdapter.getExercises() + inferiorExercisesAdapter.getExercises())
-                .filter { it.isSelected }
+            // Obter todos os exercícios selecionados
+            val selectedExercises = mutableListOf<Exercise>().apply {
+                addAll(superiorExercisesAdapter.getSelectedExercises())
+                addAll(inferiorExercisesAdapter.getSelectedExercises())
+            }
             
             if (selectedExercises.isEmpty()) {
                 Toast.makeText(this, getString(R.string.no_exercises_selected_error), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             
+            // Salvar exercícios selecionados
             viewModel.saveExercisesInCache(selectedExercises)
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
+        onBackPressedDispatcher.onBackPressed()
         return true
     }
 }
