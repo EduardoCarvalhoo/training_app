@@ -21,7 +21,6 @@
         android:id="@+id/register_title_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="70dp"
         android:text="@string/register_title_text"
         android:textAlignment="center"
@@ -37,7 +36,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="76dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/black"
@@ -55,7 +53,7 @@
             android:hint="@string/login_email_hint"
             android:inputType="textEmailAddress"
             android:textColor="@color/slater_grey"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -63,7 +61,6 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="8dp"
         android:textColorHint="@color/black"
         app:boxStrokeColor="@color/black"
@@ -82,7 +79,7 @@
             android:hint="@string/login_password_hint"
             android:inputType="textPassword"
             android:textColor="@color/gunmetal"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -90,7 +87,6 @@
         android:id="@+id/register_user_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@drawable/ic_button_background_selector"
         android:padding="16dp"

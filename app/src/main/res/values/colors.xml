@@ -23,4 +23,6 @@
     <color name="chip_background_selected">#57bbbc</color>
     <color name="chip_text">#FF000000</color>
     <color name="chip_text_selected">#FFFFFFFF</color>
+    <!-- Nova cor para a barra de status -->
+    <color name="status_bar_color">#215FDA</color>
 </resources>
