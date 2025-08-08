@@ -1,56 +1,37 @@
 package com.example.training.presentation.ui.splashScreen;
 
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.os.Handler
+import android.os.Looper
 import com.example.training.presentation.ui.login.LoginActivity;
-import com.example.treinoacademia.R;
 import com.example.treinoacademia.databinding.ActivityInitialPresentationBinding;
+import androidx.core.animation.doOnEnd
 
-public class InitialPresentationActivity extends AppCompatActivity {
-    private ActivityInitialPresentationBinding binding;
+class InitialPresentationActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityInitialPresentationBinding.inflate(layoutInflater) };
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
-        binding = ActivityInitialPresentationBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(binding.root);
 
         setupSplashScreen();
     }
 
-    public void setupSplashScreen() {
-        // Carrega a animação de rotação
-        Animation rotationAnimation = AnimationUtils.loadAnimation(this, R.anim.logo_rotation);
-        
-        // Define um listener para quando a animação terminar
-        rotationAnimation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-                // Animação iniciou
-            }
+    private fun setupSplashScreen() {
+        val rotationAnimation = ObjectAnimator.ofFloat(binding.splashLogoImageView, "rotation", 0f, 360f).apply {
+            duration = 1000
+        }
 
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                // Quando a animação terminar, aguarda um pouco e navega para o login
-                final Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    Intent intent = new Intent(InitialPresentationActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                }, 500); // Aguarda 500ms após a animação terminar
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                // Animação repetiu
-            }
-        });
-        
-        // Inicia a animação no logo
-        binding.splashLogoImageView.startAnimation(rotationAnimation);
+        rotationAnimation.doOnEnd {
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this@InitialPresentationActivity, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 500)
+        }
+        rotationAnimation.start()
     }
 }
