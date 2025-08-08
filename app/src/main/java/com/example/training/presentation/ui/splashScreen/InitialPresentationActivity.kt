@@ -1,23 +1,23 @@
-package com.example.training.presentation.ui.splashScreen;
+package com.example.training.presentation.ui.splashScreen
 
 import android.animation.ObjectAnimator
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
-import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.example.training.presentation.ui.login.LoginActivity;
-import com.example.treinoacademia.databinding.ActivityInitialPresentationBinding;
+import com.example.training.presentation.ui.login.LoginActivity
+import com.example.treinoacademia.databinding.ActivityInitialPresentationBinding
 import androidx.core.animation.doOnEnd
 
 class InitialPresentationActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityInitialPresentationBinding.inflate(layoutInflater) };
+    private val binding by lazy { ActivityInitialPresentationBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState);
-        setContentView(binding.root);
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
 
-        setupSplashScreen();
+        setupSplashScreen()
     }
 
     private fun setupSplashScreen() {
