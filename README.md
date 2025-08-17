@@ -1,7 +1,6 @@
 # training-app
 ## Sobre o projeto:
 
-Este app é um o desafio de estágio em Desenvolvimento Android.
 No aplicativo é possível cadastrar um novo usuário, fazer a autenticação, cadastrar um treino com os exercícios selecionados, visualizar uma lista de treinos do usuário quando cadastrados, cada treino é possível vizualizar seus detalhes podendo atualizar os mesmos ou excluí-los.
 
 Neste app foi utilizado:
