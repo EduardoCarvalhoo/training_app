@@ -10,11 +10,11 @@ plugins {
 
 android {
     namespace 'com.example.treinoacademia'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.example.treinoacademia"
-        minSdk 28
+        minSdk 21
         targetSdk 33
         versionCode 1
         versionName "1.0"
